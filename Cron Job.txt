@@ -1,0 +1,63 @@
+If you're developing on Windows and deploying on a cPanel-based hosting environment, you can still implement the deletion of old files by utilizing cPanel's Cron Jobs feature, which is available via the cPanel interface. Here's how you can achieve it:
+
+Steps to Set Up a Cron Job in cPanel:
+Log in to cPanel:
+
+Go to your cPanel login page (usually https://yourdomain.com/cpanel) and log in with your credentials.
+Locate the Cron Jobs Section:
+
+In the cPanel dashboard, find the "Advanced" section.
+Click on "Cron Jobs" to open the cron job configuration page.
+Set Up a New Cron Job:
+
+In the "Cron Email" section, you can set an email address to receive notifications for your cron job (optional, but useful for debugging).
+
+In the "Add New Cron Job" section, you'll see several options:
+
+Common Settings: Select a common setting like "Once Per Day" if you want it to run daily, or set a custom schedule.
+Custom Settings: For more control, you can set the cron job schedule using a custom time format (e.g., 0 0 * * * for running the job every day at midnight).
+Enter the Command for Your Cron Job:
+
+Under the "Command" field, you'll need to specify the path to the PHP script that deletes old files. In most cPanel environments, the PHP executable path is typically something like /usr/bin/php, but you should confirm this with your host. If you're unsure, you can check with them or try /usr/local/bin/php.
+Here's an example of a cron job command to run your script daily:
+
+bash
+Copy
+Edit
+/usr/bin/php /home/yourusername/public_html/delete_old_files.php
+Replace /home/yourusername/public_html/delete_old_files.php with the correct path to your PHP file that deletes the old audio files. Note that yourusername should be replaced with your actual cPanel username.
+
+Save the Cron Job:
+
+Once you've set the schedule and command, click "Add New Cron Job" to save it.
+Cron Job Syntax
+For reference, here's an example of how cron jobs are scheduled. The time format is:
+
+lua
+Copy
+Edit
+* * * * * command_to_execute
+| | | | |
+| | | | +---- Day of the week (0 - 7) (Sunday = 0 or 7)
+| | | +------ Month (1 - 12)
+| | +-------- Day of the month (1 - 31)
+| +---------- Hour (0 - 23)
++------------ Minute (0 - 59)
+For a daily job at midnight:
+
+ruby
+Copy
+Edit
+0 0 * * * /usr/bin/php /home/yourusername/public_html/delete_old_files.php
+Testing Your Cron Job
+Once you've set it up, it's a good idea to test your cron job manually before fully relying on it.
+
+Run the Script Manually: You can log into your cPanel account's File Manager, navigate to the directory where your script (delete_old_files.php) is located, and run it via SSH or using cPanel's Terminal (if available).
+
+Check for Errors: If you've set up an email for cron notifications, you should receive an email with the output (or errors) of your cron job. If there are any issues with the file or script, the email will provide feedback to help you debug.
+
+Additional Notes:
+File Paths: When specifying file paths in the cron job command, ensure you're using the absolute path, as relative paths might not work as expected from the cron job environment.
+Permissions: Ensure that your PHP script has the proper permissions to execute and delete files from the server. You may need to set appropriate file/folder permissions using cPanel’s File Manager.
+PHP Path: You can confirm the correct PHP path by creating a simple PHP script with <?php phpinfo(); ?> and running it via your browser to check the loaded PHP configuration.
+This setup will ensure that your audio files and their corresponding database records are cleaned up after 7 days, and you don't have to manually handle the deletion process.

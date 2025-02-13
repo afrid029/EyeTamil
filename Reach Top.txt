@@ -1,0 +1,17 @@
+ <script>
+        const image = document.getElementById('image');
+        const message = document.getElementById('message');
+
+        // Listen for the scroll event
+        window.addEventListener('scroll', () => {
+            // Get the position of the image
+            const rect = image.getBoundingClientRect();
+
+            // Check if the image has reached the top of the viewport
+            if (rect.top <= 0) {
+                message.style.visibility = 'visible'; // Show the message
+            } else {
+                message.style.visibility = 'hidden'; // Hide the message
+            }
+        });
+    </script>
