@@ -84,6 +84,7 @@ body {
   height: inherit;
   /* clip-path: url(#custom-clip-path);  */
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   display: flex;
   justify-content: end;
   align-items: end;
@@ -100,6 +101,7 @@ body {
   height: inherit;
   /* clip-path: url(#custom-clip-path);  */
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 
   transition: background 0.8s linear;
   animation: test2 2s ease-in-out backwards;
@@ -108,21 +110,27 @@ body {
 @keyframes test {
   0% {
     clip-path: circle(40% at 75% 50%);
+    -webkit-clip-path: circle(40% at 75% 50%);
   }
 
   40% {
     clip-path: circle(70% at 75% 50%);
+    -webkit-clip-path: circle(70% at 75% 50%);
   }
 
   60% {
     clip-path: circle(50% at 75% 50%);
+    -webkit-clip-path: circle(50% at 75% 50%);
   }
   80% {
     clip-path: circle(60% at 75% 50%);
+    -webkit-clip-path: circle(60% at 75% 50%);
+
   }
 
   100% {
     clip-path: url(#custom-clip-path);
+    -webkit-clip-path: url(#custom-clip-path);
   }
 }
 
@@ -132,28 +140,33 @@ body {
     background: linear-gradient(90deg, #404464, #543fa8);
 
     clip-path: circle(30% at 75% 50%);
+    -webkit-clip-path: circle(30% at 75% 50%);
   }
 
   40% {
     background: linear-gradient(90deg, #404464, #543fa8);
     clip-path: circle(60% at 75% 50%);
+    -webkit-clip-path: circle(60% at 75% 50%);
   }
 
   60% {
     background: linear-gradient(90deg, #404464, #543fa8);
 
     clip-path: circle(40% at 75% 50%);
+    -webkit-clip-path: circle(40% at 75% 50%);
   }
   80% {
     background: linear-gradient(90deg, #404464, #543fa8);
 
     clip-path: circle(50% at 75% 50%);
+    -webkit-clip-path: circle(50% at 75% 50%);
   }
 
   100% {
     opacity: 0;
     background: linear-gradient(90deg, #404464, #543fa8);
     clip-path: url(#custom-clip-path);
+    -webkit-clip-path: url(#custom-clip-path);
   }
 }
 
@@ -768,7 +781,7 @@ p{
 }
 
 .circle-bar .active-circle {
-  background-color: #ad7610;
+  background-color: #ff9030;
 }
 
 .container .slider-scrollbar {
@@ -850,7 +863,7 @@ p{
     justify-content: space-between;
     width: 100%;
     padding: 6vh 4%;
-    align-items: center;
+    /* align-items: center; */
 
 }
 
@@ -891,6 +904,22 @@ p{
     letter-spacing: 2px;
 }
 
+.current_player {
+  background-color:#ff9030;
+  border-color: transparent;
+  animation: current 0.3s linear forwards;
+}
+
+@keyframes current {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100%{
+    transform: scaleX(1);
+  }
+}
+
 .hr-line {
     width: 0.25%;
     /* height: fit-content; */
@@ -905,13 +934,16 @@ p{
    flex-direction: column;
    align-items: center;
   /* From https://css.glass */
-background: rgba(36, 44, 153, 0.82);
+background: rgba(36, 44, 153, 0.096);
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(3.6px);
 -webkit-backdrop-filter: blur(3.6px);
     position: relative;
     height: max-content;
+    top: 200px;
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px #dd955970;
 }
 
 .playing-feature-cover{
@@ -921,6 +953,15 @@ backdrop-filter: blur(3.6px);
     opacity: 0.5;
     position: absolute;
     height: 100%;
+}
+
+.show{
+  display: block;
+
+}
+
+.hide {
+  display: none;
 }
 
 
@@ -939,16 +980,34 @@ backdrop-filter: blur(3.6px);
     letter-spacing: 2px;
 }
 
+.player-bottom {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1.5vh 10%;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
 
 .playing-feature .news-title {
     justify-content: flex-start;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-left: 10%;
-    background-color: #b6781b;
-    color: wheat;
+   
+    /* background-color: #b6781b2a; */
+   
     border-radius: 0 0 16px 16px;
+}
+
+.news-title h4 {
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+}
+.news-title h6 {
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.418);
 }
 
 @media only screen and (max-width: 1023px) {

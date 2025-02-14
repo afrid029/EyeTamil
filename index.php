@@ -26,6 +26,8 @@
                 <path id="clip-path" d="" />
             </clipPath>
         </defs>
+
+        <use href="/Assets/Images/soundcloud-brands-solid.svg#clip-path"></use>
     </svg>
 
 
@@ -315,42 +317,43 @@
                 Featured News
             </h3>
             <div class="circle-bar">
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
                 <div class="circle active-circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
                 <div class="circle"></div>
                 <div class="circle"></div>
                 <div class="circle"></div>
             </div>
         </div>
         <div class="feature-container">
-            <div class="all-features">
-                <div class="feature">
+            <div onclick="selectAudio(event)" class="all-features">
+                <div id="1" class="feature">
+                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
+                    <h6>2025/02/12</h6>
+                    <hr class="current_player">
+                </div>
+                <div id="2" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
                     <h6>2025/02/12</h6>
                 </div>
-                <div class="feature">
+                <div id="3" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
                     <h6>2025/02/12</h6>
                 </div>
-                <div class="feature">
+                <div id="4" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
                     <h6>2025/02/12</h6>
                 </div>
-                <div class="feature">
+                <div id="5" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
                     <h6>2025/02/12</h6>
                 </div>
-                <div class="feature">
+                <div id="6" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
                     <h6>2025/02/12</h6>
                 </div>
-                <div class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                </div>
-                <div class="feature">
+                <div id="7" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
                     <h6>2025/02/12</h6>
                 </div>
@@ -361,15 +364,32 @@
             </div>
             <div class="playing-feature">
                 <div class="playing-feature-cover"></div>
+                
                 <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                <div class="news-title">
-                <h4>Daily News</h4>
-                <h6>2025/02/12</h6>
+
+                <div class="player-bottom" style="position: relative;">
+                <audio id="newsPlayer" src="/Assets/Audio/My Universe.mp3"></audio>
+                    <div onclick="controlAudio()">
+                        <i class="fa-regular fa-circle-play fa-shake audioPlay show" style="color: #d1811b80; font-size: 48px; "></i>
+                        <i class="fa-regular fa-circle-pause audioPause hide" style="color: #d1811b80; font-size: 48px;"></i>
+                    </div>
+                    <div class="news-title">
+                        <h4>Daily News</h4>
+                        <h6>2025/02/12</h6>
+                    </div>
                 </div>
+              
             </div>
         </div>
         
     </div>
+
+    <div>
+        <button ><a href="https://eyefm.ca.ycmcloud.com/live_chat.v1.0.0.js?channelNumber=LC00000" _blank>Live Chat</a></button>
+
+        
+    </div>
+    <script src="https://eyefm.ca.ycmcloud.com/live_chat.v1.0.0.js?channelNumber=LC00000" ></script>
 
 </body>
 
@@ -489,6 +509,8 @@
         if (radio.paused) {
             // radio.currentTime = 0;
             // play.classList.toggle("show");
+
+
             play.style.display = "none";
             pause.style.display = "block";
 
@@ -498,25 +520,139 @@
             // }, 1000)
             radio.play();
             activeSpike();
-        }
-        if (radio.volume == 0) {
-
-            play.style.display = "none";
-            pause.style.display = "block";
-            radio.volume = 1;
-            radio.play();
-            activeSpike();
-        } else {
+        }else {
             pause.style.display = "none";
 
-            play.style.display = "block";
-            radio.volume = 0;
-            radio.pause();
-            deactiveSpike();
+play.style.display = "block";
+// radio.volume = 0;
+radio.pause();
+deactiveSpike();
         }
 
 
 
+        // if (radio.volume == 0) {
+
+        //     play.style.display = "none";
+        //     pause.style.display = "block";
+        //     radio.volume = 1;
+        //     radio.play();
+        //     activeSpike();
+        // } else {
+        //     pause.style.display = "none";
+
+        //     play.style.display = "block";
+        //     radio.volume = 0;
+        //     radio.pause();
+        //     deactiveSpike();
+        // }
+
+    }
+
+    let current = 1;
+    function selectAudio(event) {
+        // console.log(event.target.parentElement.id);
+        if(event.target.classList.contains("feature-image")){
+            const parenElement = event.target.parentElement;
+            if(current != parenElement.id){
+
+                /* Pick the audio and play in audio player */
+                playAudio("/Assets/Audio/My Universe.mp3");
+
+                document.querySelector(".current_player").remove();
+                document.querySelector(".active-circle").classList.remove("active-circle");
+                const hr = document.createElement("hr");
+                hr.classList.add("current_player");
+                parenElement.appendChild(hr)
+                current = Number(parenElement.id);
+
+                const circles = document.querySelectorAll(".circle");
+                circles[current-1].classList.add("active-circle");
+                
+            }
+        }
+    }
+
+    function playAudio(src){
+        const audio = document.getElementById("newsPlayer");
+        const play = document.querySelector(".audioPlay");
+        const pause = document.querySelector(".audioPause");
+        audio.setAttribute('src', src);
+        // console.log(audio);
+        
+
+        if(audio) {
+            playRadio();
+            setTimeout(() => {
+                audio.play();
+            }, 500)
+            
+        }else{
+            console.log("audio not found");
+            
+        }
+        play.classList.remove("show");
+        play.classList.add("hide");
+        pause.classList.add("show");
+        pause.classList.remove("hide");
+    }
+
+    function controlAudio() {
+        const audio = document.getElementById("newsPlayer");
+        const play = document.querySelector(".audioPlay");
+        const pause = document.querySelector(".audioPause");
+
+        if(audio.paused){
+            audio.play();
+
+        }else {
+            audio.pause();
+        }
+
+        play.classList.toggle("show");
+        play.classList.toggle("hide");
+        pause.classList.toggle("show");
+        pause.classList.toggle("hide");
+       
+
+        // if(play.style.display === "none"){
+        //     play.style.display = "block"
+        //     pause.style.display = "none"
+        // }
+
+        // if(pause.style.display === "none"){
+        //     play.style.display = "none"
+        //     pause.style.display = "block"
+        // }
+
+        // if (radio.paused) {
+        //     // radio.currentTime = 0;
+        //     // play.classList.toggle("show");
+        //     play.style.display = "none";
+        //     pause.style.display = "block";
+
+        //     // setTimeout(() => {
+
+        //     //     pause.classList.toggle("show")
+        //     // }, 1000)
+        //     radio.play();
+        //     activeSpike();
+        // }
+        // if (radio.volume == 0) {
+
+        //     play.style.display = "none";
+        //     pause.style.display = "block";
+        //     radio.volume = 1;
+        //     radio.play();
+        //     activeSpike();
+        // } else {
+        //     pause.style.display = "none";
+
+        //     play.style.display = "block";
+        //     radio.volume = 0;
+        //     radio.pause();
+        //     deactiveSpike();
+        // }
 
     }
 
@@ -536,5 +672,7 @@
         })
     }
 </script>
+
+
 
 </html>
