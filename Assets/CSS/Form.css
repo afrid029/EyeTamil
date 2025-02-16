@@ -80,3 +80,116 @@
   .submit:disabled {
     background-color: #a15a14;
   }
+
+
+
+  @media (min-width: 1600px) {
+    .Form {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    .FormRow {
+      margin-bottom: 7vh;
+    }
+
+    textarea {
+      height: 160px !important;
+    }
+
+    .FormRow input, textarea {
+      height: 60px;
+      font-size: 1.2rem;
+    }
+
+    .submit {
+      height: 5vh;
+      font-size: 1.4rem;
+    }
+  }
+  @media (max-width: 1600px) {
+    .Form {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    .FormRow {
+      margin-bottom: 5vh;
+    }
+
+    textarea {
+      height: 150px !important;
+    }
+
+    .FormRow input, textarea {
+      height: 50px;
+      font-size: 0.8rem;
+    }
+
+    .submit {
+      height: 5vh;
+      font-size: 0.8rem;
+    }
+  }
+  
+  
+  
+  @media (max-width: 1024px) {
+    .Form {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    .FormRow {
+      margin-bottom: 5vh;
+    }
+
+    textarea {
+      height: 120px !important;
+    }
+
+    .FormRow input, textarea {
+      height: 35px;
+      font-size: 0.5rem;
+    }
+
+    .submit {
+      height: 4.5vh;
+      font-size: 0.55rem;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .Form {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    .FormRow {
+      margin-bottom: 3vh !important;
+    }
+
+    textarea {
+      height: 120px !important;
+    }
+
+    .FormRow input, textarea {
+      height: 35px;
+      font-size: 0.9rem;
+    }
+
+    .submit {
+      height: 4.5vh;
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+  
+
+    .submit {
+      width: 70%;
+      height: 4.5vh;
+      font-size: 0.85rem;
+    }
+  }

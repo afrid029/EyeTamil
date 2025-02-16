@@ -6,23 +6,23 @@
     <link rel="icon" type="image/png" href="/Assets/Images/logo.png" />
     <script src="https://kit.fontawesome.com/a10acb0cd6.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Lexend:wght@100..900&family=Monomakh&family=Noto+Sans+Tamil:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Lexend:wght@100..900&family=Monomakh&family=Noto+Sans+Tamil:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="Assets/CSS/index.css" />
     <link rel="stylesheet" href="Assets/CSS/Form.css" />
 </head>
 
-<body id = "body">
+<body id="body">
     <div class="body-cover"></div>
 
-    <div  class="buttons">
-        <div onclick="goToSponsor()" class="sponsor">
+    <div class="buttons">
+        <div onclick="goToSponsor(true)" class="sponsor">
             <i class="fa-solid fa-atom"></i>
             <h4>Be Our Next Sponsor!</h4>
         </div>
         <div class="sponsor">
-        <i class="fa-solid fa-user-tie"></i>
+            <i class="fa-solid fa-user-tie"></i>
             <h4>Signin</h4>
         </div>
     </div>
@@ -31,9 +31,24 @@
         <i class="fa-solid fa-jet-fighter-up" style="color: #f3f3f2;"></i>
     </div>
 
-    <!-- for Width 2600px -->
+    <div class="mobile-side-bar">
+        <div class="mobile-side-bar-content">
+            <div onclick="slideBar(false)" class="close">x</div>
+            <img src="/Assets/Images/logo.png" alt="">
 
+            <div onclick="goToSponsor(false)" class="mobile-side-bar-optn">
+                <i class="fa-solid fa-atom"></i>
+                <h4>Be Our Next Sponsor!</h4>
+            </div>
+            <hr>
+            <div class="mobile-side-bar-optn">
+                <i class="fa-solid fa-user-tie"></i>
+                <h4>Signin</h4>
+            </div>
+            <hr>
 
+        </div>
+    </div>
 
     <svg width="0" height="0">
         <defs>
@@ -47,9 +62,9 @@
     </svg>
 
 
-
+    <audio id="audioPlayer" src="http://streams.radio.co/s937ac5492/listen"></audio>
     <div class="nav">
-        <audio id="audioPlayer" src="http://streams.radio.co/s937ac5492/listen"></audio>
+
 
         <div class="nav-cover"></div>
         <div class="nav-container">
@@ -112,6 +127,21 @@
 
     </div>
 
+    <div class="mobile-nav">
+        <div class="mobile-nav-logo">
+            <img src="Assets/Images/logo.png" alt="">
+
+        </div>
+
+        <div onclick="slideBar(true)" class="mobile-nav-option">
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    </div>
+
     <script>
         function updateClipPath() {
             var container = document.querySelector('.nav');
@@ -142,6 +172,8 @@
         setTimeout(() => {
             updateClipPath();
         }, 500)
+
+        window.addEventListener('resize', updateClipPath)
     </script>
 
     <!-- <div class="temp-container">
@@ -159,12 +191,12 @@
 
     <div class="container-body">
         <div class="container-body-cover"></div>
-        <!-- <div class="fm-intro">
-            <h1>Welcome to EYE Tamil FM</h1>
-            <h4>Thrive to DOcdsfs</h4>
-        </div> -->
+        <div class="fm-intro">
+            <h1>Welcome to EYE<span> தமிழ்</span> FM 102.9</h1>
+            <h4>தமிழ் எம் உயிர்க்கு நிகர்!</h4>
+        </div>
         <div class="container-spinner">
-           <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+            <i class="fa-solid fa-spinner fa-spin-pulse"></i>
         </div>
 
         <div class="container" style="display: none;">
@@ -173,24 +205,24 @@
                     chevron_left
                 </button>
                 <ul class="image-list">
-                   
+
                 </ul>
                 <button id="next-slide" class="slide-button material-symbols-rounded">
                     chevron_right
                 </button>
             </div>
 
-           <div class="home-button">
-            <div onclick="scrollToCenter()" class="home">
+            <div class="home-button">
+                <div onclick="scrollToCenter()" class="home">
                     <i class="fa-solid fa-house"></i>
+                </div>
             </div>
-           </div>
 
-    
+
             <div class="slider-scrollbar">
-         
 
-            
+
+
                 <div class="scrollbar-track">
                     <div class="scrollbar-thumb"></div>
                 </div>
@@ -215,6 +247,21 @@
             </div>
         </div>
         <div class="feature-container">
+            <audio id="newsPlayer" src="/Assets/Audio/My Universe.mp3"></audio>
+            <div class="mobile-playing-feature">
+                <div class="mobile-playing-feature-cover"></div>
+                <div class="player-bottom" style="position: relative;">
+
+                    <div style="cursor: pointer" onclick="controlAudio()">
+                        <i class="fa-regular fa-circle-play fa-shake playControl audioPlay show" style="color: #d1811b80; "></i>
+                        <i class="fa-regular fa-circle-pause playControl audioPause hide" style="color: #d1811b80;"></i>
+                    </div>
+                    <div class="news-title">
+                        <h4>Daily News</h4>
+                        <h6>2025/02/12</h6>
+                    </div>
+                </div>
+            </div>
             <div onclick="selectAudio(event)" class="all-features">
                 <div id="1" class="feature">
                     <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
@@ -252,28 +299,28 @@
             </div>
             <div class="playing-feature">
                 <div class="playing-feature-cover"></div>
-                
+
                 <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
 
                 <div class="player-bottom" style="position: relative;">
-                <audio id="newsPlayer" src="/Assets/Audio/My Universe.mp3"></audio>
+
                     <div style="cursor: pointer" onclick="controlAudio()">
-                        <i class="fa-regular fa-circle-play fa-shake audioPlay show" style="color: #d1811b80; font-size: 48px; "></i>
-                        <i class="fa-regular fa-circle-pause audioPause hide" style="color: #d1811b80; font-size: 48px;"></i>
+                        <i class="fa-regular fa-circle-play fa-shake playControl audioPlay show" style="color: #d1811b80; "></i>
+                        <i class="fa-regular fa-circle-pause playControl audioPause hide" style="color: #d1811b80;"></i>
                     </div>
                     <div class="news-title">
                         <h4>Daily News</h4>
                         <h6>2025/02/12</h6>
                     </div>
                 </div>
-              
+
             </div>
         </div>
-        
+
     </div>
 
     <div class="footer">
-        <div class = "logo">
+        <div class="logo">
             <div class="logo-img"></div>
             <img src="/Assets/Images/borderlogo.png" alt="">
         </div>
@@ -285,33 +332,33 @@
 
                 <div class="contact-item">
                     <div class="contact-item-text">
-                        <i class="fa-solid fa-thumbtack" style="color: #cfcbcbdb;"></i>
+                        <i class="fa-solid fa-thumbtack"></i>
                         <h5>303 Rue Edmond Larivee, Laval, QC, H7L 0A4</h5>
                     </div>
                     <hr>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-text">
-                    <i class="fa-solid fa-headset" style="color: #cfcbcbdb;"></i>
+                        <i class="fa-solid fa-headset"></i>
                         <h5>1-514-584-2699</h5>
                     </div>
-                    
+
                     <hr>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-text">
-                    <i class="fa-solid fa-envelope-open-text" style="color: #cfcbcbdb;"></i>
+                        <i class="fa-solid fa-envelope-open-text"></i>
                         <h5>contact@eyetamilfm.com</h5>
                     </div>
-                    
+
                     <hr>
                 </div>
                 <div class="contact-item">
                     <div class="contact-item-text">
-                    <i class="fa-solid fa-door-open" style="color: #cfcbcbdb;"></i>
+                        <i class="fa-solid fa-door-open"></i>
                         <h5>Monday - Friday 09:00 AM - 05:00 PM</h5>
                     </div>
-                    
+
                     <hr>
                 </div>
 
@@ -321,68 +368,81 @@
                 <h3>We appreciate hearing from you</h3>
 
                 <form action="/add-user" method="post" oninput="validateForm()" onsubmit="return submitLoginform()">
-                <div class="div"> </div>
-                <div class="Form">
-                    <!-- Name -->
-                    <div class="FormRow">
-                        <input type="text" id="select-name" name="name" placeholder="Name" required> 
-                    </div>
-                    <!-- Company Name -->
-                    <div class="FormRow">
-                        <input type="text" id="select-company" name="company" placeholder="Company Name" required> 
-                    </div>
-                    <!-- Contact -->
-                    <div class="FormRow">
-                        <input type="text" id="select-contact" name="contact" placeholder="Contact Number" required> 
-                    </div>
-                    <!-- Email -->
-                    <div class="FormRow">
-                        <input type="email" id="select-email" name="email" placeholder="Contact Email" required> 
-                    </div>
-                    <!-- Address -->
-                    <div class="FormRow">
-                        <input type="text" id="select-address" name="address" placeholder="Address" required> 
-                    </div>
-                    <!-- Description -->
-                    <div class="FormRow">
-                        <textarea type="text" id="select-description" name="description" placeholder="Describe your message" maxlength="250" required></textarea> 
-                    </div>
+                    <div class="div"> </div>
+                    <div class="Form">
+                        <!-- Name -->
+                        <div class="FormRow">
+                            <input type="text" id="select-name" name="name" placeholder="Name" required>
+                        </div>
+                        <!-- Company Name -->
+                        <div class="FormRow">
+                            <input type="text" id="select-company" name="company" placeholder="Company Name" required>
+                        </div>
+                        <!-- Contact -->
+                        <div class="FormRow">
+                            <input type="text" id="select-contact" name="contact" placeholder="Contact Number" required>
+                        </div>
+                        <!-- Email -->
+                        <div class="FormRow">
+                            <input type="email" id="select-email" name="email" placeholder="Contact Email" required>
+                        </div>
+                        <!-- Address -->
+                        <div class="FormRow">
+                            <input type="text" id="select-address" name="address" placeholder="Address" required>
+                        </div>
+                        <!-- Description -->
+                        <div class="FormRow">
+                            <textarea type="text" id="select-description" name="description" placeholder="Describe your message" maxlength="250" required></textarea>
+                        </div>
 
-                    <div class="button">
-                        <button
-                            type="submit"
-                            id="submit"
-                            name="submit"
-                            disabled="true"
-                            class="submit">
-                            <i class="fa-regular fa-paper-plane" style="color: #f1f2f4;"></i>
-                            Share Proposal 
-                        </button>
+                        <div class="button">
+                            <button
+                                type="submit"
+                                id="submit"
+                                name="submit"
+                                disabled="true"
+                                class="submit">
+                                <i class="fa-regular fa-paper-plane" style="color: #f1f2f4;"></i>
+                                Share Proposal
+                            </button>
 
-                        <button
-                            style="display: none;"
-                            id="submiting"
-                            disabled="true"
-                            class="submit"> Sharing...
-                        </button>
+                            <button
+                                style="display: none;"
+                                id="submiting"
+                                disabled="true"
+                                class="submit"> Sharing...
+                            </button>
+                        </div>
+
+
+
                     </div>
-
-                
-
-                </div>
-            </form>
+                </form>
 
             </div>
         </div>
-    
+
+        <p class="copyright"> Copyright : Mass Production IT</p>
+
     </div>
-    
+
+    <div class="mobile-player">
+        <div class="playerButton">
+            <div class="player-image"></div>
+            <div class="image-cover"></div>
+            <div onclick="playRadio()" class="playIcon">
+                <i class="fa-solid fa-play play"></i>
+                <i class="fa-solid fa-pause pause" style="color: #f5f5f5; display: none;"></i>
+
+            </div>
+
+        </div>
+    </div>
+
 
 </body>
 
 <script>
-
-    
     function validateForm() {
         const name = document.getElementById('select-name').value;
         const company = document.getElementById('select-company').value;
@@ -394,14 +454,14 @@
 
         let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-        if (emailPattern.test(email) && name.length > 0 && company.length > 0 && contact.length > 0 && address.length > 0 && description.length > 0 ) {
+        if (emailPattern.test(email) && name.length > 0 && company.length > 0 && contact.length > 0 && address.length > 0 && description.length > 0) {
             button.disabled = false;
             console.log('false');
-            
+
         } else {
             button.disabled = true;
             console.log('true');
-            
+
         }
 
     }
@@ -414,157 +474,160 @@
         return true;
     }
 
-        function scrollToTop() {
-            const element = document.getElementById('body');
-            element.scrollIntoView({
-                behavior: 'smooth'  // This adds smooth scrolling
-            });
+    function scrollToTop() {
+        const element = document.getElementById('body');
+        element.scrollIntoView({
+            behavior: 'smooth' // This adds smooth scrolling
+        });
+
+    }
+
+    function goToSponsor(val) {
+        const element = document.querySelector('.sponsorForm');
+        if (!val) {
+            slideBar(false)
+        }
+        element.scrollIntoView({
+            behavior: 'smooth' // This adds smooth scrolling
+        });
+    }
+
+    const scrollButton = document.querySelector('.scroll');
+    const player = document.querySelector('.player');
+    const nav = document.querySelector('.nav');
+    window.onscroll = function() {
+
+        if (document.body.scrollTop > nav.offsetHeight || document.documentElement.scrollTop > nav.offsetHeight) {
+            // Show button if scrolled more than 300px from top
+            scrollButton.style.display = "flex";
+
+            setTimeout(() => {
+                scrollButton.style.opacity = 1;
+            }, 500)
+        } else {
+            // Hide button if scrolled back to top
+            scrollButton.style.opacity = 0;
+            setTimeout(() => {
+                scrollButton.style.display = "none";
+            }, 500)
 
         }
 
-        function goToSponsor() {
-            const element = document.querySelector('.sponsorForm');
-            element.scrollIntoView({
-                behavior: 'smooth'  // This adds smooth scrolling
-            });
-        }
 
-        const scrollButton = document.querySelector('.scroll');
-        const player = document.querySelector('.player');
-        const nav = document.querySelector('.nav');
-        window.onscroll = function() {
-            
-            if (document.body.scrollTop > nav.offsetHeight || document.documentElement.scrollTop > nav.offsetHeight) {
-                // Show button if scrolled more than 300px from top
-                scrollButton.style.display = "flex";
+        const rect = player.getBoundingClientRect();
 
+        let scrolled = window.scrollY;
+
+        // console.log(nav.offsetHeight);
+
+        if (scrolled >= 2 * nav.offsetHeight) {
+            console.log('reached');
+            document.querySelector('.sponsor').style.display = 'none';
+            const classes = document.querySelector('.nav').classList;
+
+            if (!classes.contains('top-nav')) {
+                classes.add('top-nav');
+            }
+
+
+        } else if (scrolled < 2 * nav.offsetHeight) {
+            console.log('yet to reach');
+            document.querySelector('.sponsor').style.display = 'flex';
+            const classes = document.querySelector('.nav').classList;
+
+            if (classes.contains('top-nav')) {
+                classes.remove('top-nav');
                 setTimeout(() => {
-                    scrollButton.style.opacity = 1;
-                }, 500)
-            } else {
-                // Hide button if scrolled back to top
-                scrollButton.style.opacity = 0;
-                setTimeout(() => {
-                    scrollButton.style.display = "none";
-                }, 500)
-                
+                    updateClipPath();
+                }, 600)
             }
 
-
-            const rect = player.getBoundingClientRect();
-
-            let scrolled = window.scrollY;
-
-            // console.log(nav.offsetHeight);
-
-            if (scrolled >= 2*nav.offsetHeight) {
-                console.log('reached');
-                document.querySelector('.sponsor').style.display = 'none';
-                const classes = document.querySelector('.nav').classList;
-
-                if(!classes.contains('top-nav')){
-                    classes.add('top-nav');
-                }
-                
-                
-            } else if(scrolled < 2*nav.offsetHeight) {
-                console.log('yet to reach');
-                document.querySelector('.sponsor').style.display = 'flex';
-                const classes = document.querySelector('.nav').classList;
-
-                if(classes.contains('top-nav')){
-                    classes.remove('top-nav');
-                    setTimeout(() => {
-                        updateClipPath();
-                    }, 600)
-                }
-
-            }
-        };
-
-    
-    function EventLoader(){
-
-       setTimeout(() => {
-        document.querySelector(".container-spinner").style.display = "none"
-        document.querySelector(".container").style.display = "block"
-        for(let i = 0; i < 15; i++){
-
-            if(i == 1){
-                const activeItem = document.createElement('div');
-                activeItem.classList.add("active-item");
-
-                const activeItemCover = document.createElement('div');
-                activeItemCover.classList.add("active-item-cover");
-
-                const activeImg = document.createElement('img');
-                activeImg.classList.add("active-src");
-                activeImg.setAttribute('src', 'Assets/Images/test.jpeg');
-
-                const activeItemText = document.createElement('div');
-                activeItemText.classList.add("active-item-text");
-
-                const activeH4 = document.createElement('h4');
-                activeH4.textContent = "ON Air";
-
-                const activeSlot = document.createElement('div');
-                activeSlot.classList.add("slot");
-
-                const activeSpan = document.createElement('span');
-                activeSpan.textContent = "Nilachoru";
-
-                
-                activeSlot.appendChild(activeSpan);
-                activeItemText.appendChild(activeH4);
-                activeItemText.appendChild(activeSlot);
-                activeItem.appendChild(activeItemCover);
-                activeItem.appendChild(activeImg);
-                activeItem.appendChild(activeItemText);
-            
-                document.querySelector(".image-list").appendChild(activeItem);
-
-            }else {
-                const imageItem = document.createElement('div');
-                imageItem.classList.add("image-item");
-
-                const imageItemCover = document.createElement('div');
-                imageItemCover.classList.add("image-item-cover");
-
-                const img = document.createElement('img');
-                img.classList.add("image-src");
-                img.setAttribute('src', 'Assets/Images/test.jpeg');
-
-                const imageItemText = document.createElement('div');
-                imageItemText.classList.add("image-item-text");
-
-                const h4 = document.createElement('h4');
-                h4.textContent = "Rakankal 16";
-
-                const slot = document.createElement('div');
-                slot.classList.add("slot");
-
-                const i = document.createElement('i');
-                i.classList.add('fa-brands', 'fa-creative-commons-sampling', 'icon');
-
-                const span = document.createElement('span');
-                span.textContent = "06:00 PM - 08:00 PM";
-
-                slot.appendChild(i);
-                slot.appendChild(span);
-                imageItemText.appendChild(h4);
-                imageItemText.appendChild(slot);
-                imageItem.appendChild(imageItemCover);
-                imageItem.appendChild(img);
-                imageItem.appendChild(imageItemText);
-
-                document.querySelector(".image-list").appendChild(imageItem);
-            
-            }
         }
+    };
+
+
+    function EventLoader() {
+
+        setTimeout(() => {
+            document.querySelector(".container-spinner").style.display = "none"
+            document.querySelector(".container").style.display = "block"
+            for (let i = 0; i < 15; i++) {
+
+                if (i == 5) {
+                    const activeItem = document.createElement('div');
+                    activeItem.classList.add("active-item");
+
+                    const activeItemCover = document.createElement('div');
+                    activeItemCover.classList.add("active-item-cover");
+
+                    const activeImg = document.createElement('img');
+                    activeImg.classList.add("active-src");
+                    activeImg.setAttribute('src', 'Assets/Images/test.jpeg');
+
+                    const activeItemText = document.createElement('div');
+                    activeItemText.classList.add("active-item-text");
+
+                    const activeH4 = document.createElement('h4');
+                    activeH4.textContent = "ON Air";
+
+                    const activeSlot = document.createElement('div');
+                    activeSlot.classList.add("slot");
+
+                    const activeSpan = document.createElement('span');
+                    activeSpan.textContent = "Nilachoru";
+
+
+                    activeSlot.appendChild(activeSpan);
+                    activeItemText.appendChild(activeH4);
+                    activeItemText.appendChild(activeSlot);
+                    activeItem.appendChild(activeItemCover);
+                    activeItem.appendChild(activeImg);
+                    activeItem.appendChild(activeItemText);
+
+                    document.querySelector(".image-list").appendChild(activeItem);
+
+                } else {
+                    const imageItem = document.createElement('div');
+                    imageItem.classList.add("image-item");
+
+                    const imageItemCover = document.createElement('div');
+                    imageItemCover.classList.add("image-item-cover");
+
+                    const img = document.createElement('img');
+                    img.classList.add("image-src");
+                    img.setAttribute('src', 'Assets/Images/test.jpeg');
+
+                    const imageItemText = document.createElement('div');
+                    imageItemText.classList.add("image-item-text");
+
+                    const h4 = document.createElement('h4');
+                    h4.textContent = "Rakankal 16";
+
+                    const slot = document.createElement('div');
+                    slot.classList.add("slot");
+
+                    const i = document.createElement('i');
+                    i.classList.add('fa-brands', 'fa-creative-commons-sampling', 'icon');
+
+                    const span = document.createElement('span');
+                    span.textContent = "06:00 PM - 08:00 PM";
+
+                    slot.appendChild(i);
+                    slot.appendChild(span);
+                    imageItemText.appendChild(h4);
+                    imageItemText.appendChild(slot);
+                    imageItem.appendChild(imageItemCover);
+                    imageItem.appendChild(img);
+                    imageItem.appendChild(imageItemText);
+
+                    document.querySelector(".image-list").appendChild(imageItem);
+
+                }
+            }
 
             initSlider();
             scrollToCenter();
-       }, 2000)
+        }, 2000)
 
     }
 
@@ -649,7 +712,7 @@
     function scrollToCenter() {
         const imageList = document.querySelector(".image-list");
         const activeItem = document.querySelector(".active-item");
-           
+
 
 
         // Ensure there is an active item
@@ -678,29 +741,39 @@
 
     window.addEventListener('resize', updateClipPath);
 
-    function playRadio() {
+    function playRadio(val) {
         const radio = document.getElementById("audioPlayer");
-        const play = document.querySelector(".play");
-        const pause = document.querySelector(".pause");
+        const play = document.querySelectorAll(".play");
+        const pause = document.querySelectorAll(".pause");
 
         if (radio.paused) {
             // radio.currentTime = 0;
             // play.classList.toggle("show");
 
 
-            play.style.display = "none";
-            pause.style.display = "block";
-
+            play.forEach((e) => {
+                e.style.display = "none";
+            })
+            pause.forEach((e) => {
+                e.style.display = "block";
+            })
+        
             // setTimeout(() => {
 
             //     pause.classList.toggle("show")
             // }, 1000)
             radio.play();
             activeSpike();
-        }else {
-            pause.style.display = "none";
+        } else {
 
-            play.style.display = "block";
+            play.forEach((e) => {
+                e.style.display = "block";
+            })
+            pause.forEach((e) => {
+                e.style.display = "none";
+            })
+
+    
             // radio.volume = 0;
             radio.pause();
             deactiveSpike();
@@ -709,11 +782,12 @@
     }
 
     let current = 1;
+
     function selectAudio(event) {
         // console.log(event.target.parentElement.id);
-        if(event.target.classList.contains("feature-image")){
+        if (event.target.classList.contains("feature-image")) {
             const parenElement = event.target.parentElement;
-            if(current != parenElement.id){
+            if (current != parenElement.id) {
 
                 /* Pick the audio and play in audio player */
                 playAudio("/Assets/Audio/My Universe.mp3");
@@ -726,32 +800,32 @@
                 current = Number(parenElement.id);
 
                 const circles = document.querySelectorAll(".circle");
-                circles[current-1].classList.add("active-circle");
-                
+                circles[current - 1].classList.add("active-circle");
+
             }
         }
     }
 
-    function playAudio(src){
+    function playAudio(src) {
         const audio = document.getElementById("newsPlayer");
         const radio = document.getElementById("audioPlayer");
         const play = document.querySelector(".audioPlay");
         const pause = document.querySelector(".audioPause");
         audio.setAttribute('src', src);
         // console.log(audio);
-        
 
-        if(audio) {
-            if(!radio.paused){
+
+        if (audio) {
+            if (!radio.paused) {
                 radio.pause();
             }
             setTimeout(() => {
                 audio.play();
             }, 500)
-            
-        }else{
+
+        } else {
             console.log("audio not found");
-            
+
         }
         play.classList.remove("show");
         play.classList.add("hide");
@@ -764,10 +838,10 @@
         const play = document.querySelector(".audioPlay");
         const pause = document.querySelector(".audioPause");
 
-        if(audio.paused){
+        if (audio.paused) {
             audio.play();
 
-        }else {
+        } else {
             audio.pause();
         }
 
@@ -775,7 +849,7 @@
         play.classList.toggle("hide");
         pause.classList.toggle("show");
         pause.classList.toggle("hide");
-       
+
 
 
     }
@@ -794,6 +868,24 @@
         lines.forEach(lin => {
             lin.classList.remove("lines");
         })
+    }
+
+    function slideBar(val) {
+        const sidebar = document.querySelector(".mobile-side-bar");
+        const sidebarContent = document.querySelector(".mobile-side-bar-content");
+        if (val) {
+            sidebar.style.display = "block"
+        } else {
+
+            sidebarContent.classList.add("bar-close");
+
+            setTimeout(() => {
+                sidebar.style.display = "none"
+                sidebarContent.classList.remove("bar-close");
+            }, 300)
+
+        }
+
     }
 </script>
 
