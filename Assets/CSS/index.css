@@ -70,9 +70,257 @@ body {
 
 .sponsor:hover {
   background-color: transparent;
-  border: 3px solid #ff9030;
+  border:  #ff9030;
   color: #ff9030;
 }
+
+.signin-form {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  top: 60px;
+ right: 10px;
+ padding-top: 15px;
+  width: 300px;
+  border-radius: 16px;
+  background-color: rgb(255, 255, 255);
+  z-index: 16;
+}
+
+.signin-form .close{
+  display: flex;
+  width: 90%;
+  justify-content: end;
+
+}
+.signin-form .close div{
+  background-color: #1e245e;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+  
+}
+
+.mobile-form {
+  flex-direction: column;
+  align-items: center;
+  display: none; 
+  width: 100%
+}
+
+.mobile-close {
+  background-color: #cf6508;
+  color: white;
+  width:30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.program-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 26;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.658);
+}
+
+.program-view {
+  background-color: white;
+  width: 90%;
+  height: 100%;
+  margin-left: 10%;
+  padding: 10px;
+  position: relative;
+  border-radius: 16px 0px 0px 16px;
+  animation: modelPop 0.5s linear forwards;
+}
+
+.close-program-view {
+  animation: modelDown 0.3s linear forwards;
+}
+
+@keyframes modelPop {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes modelDown {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.program-view .title {
+  font-size: 2rem;
+  font-family: 'Lexend', serif;
+  margin-bottom: 2px;
+  padding-bottom: 17px;
+  color: #040725;
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.p-close {
+  background-color: #040725;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  cursor: pointer;
+}
+
+.program-list-body{
+  overflow: auto;
+  height: 85%;
+}
+
+.program-list-body::-webkit-scrollbar {
+  display: none;
+}
+
+.program-list {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.program-list hr {
+  width: 90%;
+  border-color: transparent;
+  background-color: rgba(9, 11, 129, 0.03);
+  margin-bottom: 10px;
+  height: 0.5px;
+}
+
+.program-list .day {
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding-left: 10px;
+  color: #7e3b01;
+}
+
+.program-list .list {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  color: rgba(53, 52, 52, 0.651);
+}
+
+.req-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 26;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.658);
+}
+
+.req-view {
+  background-color: white;
+  width: 90%;
+  height: 100%;
+  padding: 10px;
+  position: relative;
+  border-radius: 0px 16px 16px 0px;
+  animation: modelPop1 0.5s linear forwards;
+  overflow: auto;
+}
+
+.req-view::-webkit-scrollbar {
+  display: none;
+}
+
+.close-req-view {
+  animation: modelDown1 0.3s linear forwards;
+}
+
+@keyframes modelPop1 {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes modelDown1 {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.req-view .title {
+
+  font-size: 2rem;
+  font-family: 'Lexend', serif;
+  margin-bottom: 2px;
+  padding-bottom: 17px;
+  color: #040725;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.r-close {
+  background-color: #040725;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  display: inline-grid;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  cursor: pointer;
+}
+
+
 
 .body-cover {
   background: url("/Assets/Images/bg.png");
@@ -1218,6 +1466,37 @@ p{
   bottom: -10px;
 }
 
+.programs{
+  width: 90%;
+  z-index: 1;
+  margin-top: 1.5vh;
+  display: flex;
+  justify-content: space-between;
+  
+}
+.prgrm-bnt {
+  width: fit-content;
+  background-color: #ff9030;
+  color: white;
+  border-radius: 20px;
+  padding: 5px 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  margin-bottom: 5px;
+}
+
+.req-btn {
+  background-color: #c9640c;
+}
+
+.prgrm-bnt:hover {
+  background-color: #ff913056;
+  border-color: #ff9030;
+  color: #ff9030;
+}
+
+
 .features {
   display: flex;
   flex-direction: column;
@@ -1532,10 +1811,6 @@ p{
 
 }
 
-.mobile-player .playerButton .player-image{
-  /* animation: none; */
-}
-
 .mobile-player .playIcon {
   font-size: 1.2rem;
 }
@@ -1546,6 +1821,7 @@ p{
   text-align: center;
   margin: 20px;
   color: rgba(240, 248, 255, 0.541);
+  
 }
 
 @media only screen and (max-width: 1023px) {
@@ -1758,6 +2034,16 @@ p{
     height: 10px;
     
   }
+
+  .req-view {
+    width: 60%;
+  }
+
+  .program-view {
+    width: 60%;
+    margin-left: 40%;
+
+  }
 }
 
 @media (max-width: 1600px) {
@@ -1955,6 +2241,16 @@ p{
  
     height: 8px;
     
+  }
+
+  .req-view {
+    width: 60%;
+  }
+
+  .program-view {
+    width: 60%;
+    margin-left: 40%;
+
   }
 
 
@@ -2345,6 +2641,16 @@ p{
     
   }
 
+  .req-view {
+    width: 80%;
+  }
+
+  .program-view {
+    width: 80%;
+    margin-left: 20%;
+
+  }
+
 
 }
 
@@ -2724,8 +3030,9 @@ p{
     border-radius: 30% 30% 0% 0% / 5%;
   }
 
-  .footer .logo {
-    width: 28%;
+  .footer .logo img {
+    width: 200px;
+    height: 200px;
 
   }
 
@@ -2787,6 +3094,20 @@ p{
     width: 25px;
     height: 25px;
     font-size: 0.8rem;
+  }
+
+  .req-view {
+    width: 90%;
+  }
+
+  .req-view h4 {
+    font-size: 1.4rem;
+  }
+
+  .program-view {
+    width: 90%;
+    margin-left: 10%;
+
   }
 }
 

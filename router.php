@@ -16,7 +16,12 @@ switch ($request) {
     case '/':
         require 'index.php';  // Home page
         break;
-    
+    case '/dashboard':
+        require 'Pages/dashboard.php';
+        break;
+    case '/rjboard':
+        require 'Pages/rjboard.php';
+        break;
     default:
         http_response_code(404); // Not Found
         require 'error.php';

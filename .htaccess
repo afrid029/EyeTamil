@@ -4,13 +4,13 @@ RewriteEngine On
 # RewriteCond %{HTTP_REFERER} ^(http(s)?)?://localhost/ [NC]
 RewriteCond %{HTTP_REFERER} ^http(s)?://localhost/ [NC]
 RewriteCond %{REQUEST_URI} ^/(Assets|Components|Models|Pages|Controllers|public)/  [NC]
-RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|otf|php|mp3)$
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|otf|php|mp3|aac|ogg|wma|wav)$
 RewriteRule ^ - [L]
 
 # 2. Block direct access to files in /Assets/ or /components/ from any external request (direct access to the file)
 RewriteCond %{HTTP_REFERER} ^http(s)?://localhost/ [NC]
 RewriteCond %{REQUEST_URI} ^/(Assets|Components|Models|Pages|Controllers|public)/  [NC]
-RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|otf|php|mp3)$
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|eot|otf|php|mp3|aac|ogg|wma|wav)$
 RewriteRule ^ - [F,L]
 
 # RewriteRule ^.*$ error.php [L]

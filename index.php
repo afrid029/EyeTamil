@@ -21,10 +21,48 @@
             <i class="fa-solid fa-atom"></i>
             <h4>Be Our Next Sponsor!</h4>
         </div>
-        <div class="sponsor">
+        <div onclick="openSignin(true)" class="sponsor">
             <i class="fa-solid fa-user-tie"></i>
             <h4>Signin</h4>
         </div>
+    </div>
+
+    <div class="signin-form">
+        <h3>Sign In</h3>
+        <div class="close">
+            <div onclick="openSignin(false)">x</div>
+        </div>
+        <form class="Form" action="#" method="post" oninput="validateLogin()" onsubmit="return submitLoginform()">
+            <!-- <div class="FormRow">
+                <input type="text" name="username" id="username" required placeholder="Username">
+            </div>
+            <div class="FormRow">
+                <input type="password" name="password" id="password" required placeholder="Password">
+            </div> -->
+
+            <div class="button">
+
+            
+
+            <button onclick="goToDash()" type="button"
+                    class="submit">Dashboard</button>
+                <!-- <button
+                    type="submit"
+                    id="login-submit"
+                    name="submit"
+                    disabled="true"
+                    class="submit">
+                    Sign In
+                </button>
+
+                <button
+                    style="display: none;"
+                    id="login-submiting"
+                    disabled="true"
+                    class="submit"> Signing In...
+                </button> -->
+            </div>
+        </form>
     </div>
 
     <div onclick="scrollToTop()" class="scroll">
@@ -41,12 +79,375 @@
                 <h4>Be Our Next Sponsor!</h4>
             </div>
             <hr>
-            <div class="mobile-side-bar-optn">
+            <div onclick="mobileOpenSignin(true)" class="mobile-side-bar-optn">
                 <i class="fa-solid fa-user-tie"></i>
                 <h4>Signin</h4>
             </div>
             <hr>
+            <div class="mobile-side-bar-optn">
+                <div class="mobile-form">
+                    <div onclick="mobileOpenSignin(false)" class="mobile-close">
+                        <i class="fa-solid fa-caret-up"></i>
+                    </div>
+                    <h3>Sign In</h3>
 
+                    <form class="Form" action="#" method="post" oninput="mobileValidateLogin()" onsubmit="return mobileSubmitLoginform()">
+                        <!-- <div class="FormRow">
+                            <input type="text" name="username" id="mobile-username" required placeholder="Username">
+                        </div>
+                        <div class="FormRow">
+                            <input type="password" name="password" id="mobile-password" required placeholder="Password">
+                        </div> -->
+
+                        <div class="button">
+
+                        <button onclick="goToDash()" type="button"
+                        class="submit">Dashboard</button>
+                            <!-- <button
+                                type="submit"
+                                id="mobile-login-submit"
+                                name="submit"
+                                disabled="true"
+                                class="submit">
+                                Sign In
+                            </button>
+
+                            <button
+                                style="display: none;"
+                                id="mobile-login-submiting"
+                                disabled="true"
+                                class="submit"> Signing In...
+                            </button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="program-overlay">
+        <div class="program-view">
+            <div class="title">
+                <h4>Programs</h4>
+                <div onclick="programListView(false)" class="p-close">x</div>
+            </div>
+
+            <div class="program-list-body">
+
+                <div class="program-list">
+                    <div class="day">
+                        <h4>Monday</h4>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="program-list">
+                    <div class="day">
+                        <h4>Tuesday</h4>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="program-list">
+                    <div class="day">
+                        <h4>Wednesday</h4>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="program-list">
+                    <div class="day">
+                        <h4>Thursday</h4>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                </div>
+                <div class="program-list">
+                    <div class="day">
+                        <h4>Friday</h4>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="name">
+                            Nilchoru
+                        </div>
+                        <div class="slot">
+                            20:00 - 21:00
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="req-overlay">
+        <div class="req-view">
+            <div class="title">
+                <h4>Dedicate a song to your favorites</h4>
+                <div onclick="SongReqView(false)" class="r-close">x</div>
+            </div>
+            <form class="Form" action="#" method="post" oninput="validateReqForm()" onsubmit="return submitReqForm()">
+                <!-- Requester Name -->
+                <div class="FormRow">
+                    <input type="text" id="req-name" name="req-name" placeholder="Your name" required>
+                </div>
+                <!-- From -->
+                <div class="FormRow">
+                    <input type="text" id="from" name="from" placeholder="Request From" required>
+                </div>
+
+                <!-- Song Name -->
+                <div class="FormRow">
+                    <input type="text" id="song" name="song" placeholder="Song" required>
+                </div>
+                <!-- Movie -->
+                <div class="FormRow">
+                    <input type="text" id="movie" name="movie" placeholder="Movie" required>
+                </div>
+
+                <!-- Event Selection -->
+
+
+                <div class="FormRow">
+
+                    <input type="text" name="event" id="select-event-value" hidden required>
+                    <input style="cursor: pointer;" type="text" id="select-event" placeholder="Select Program" onclick="openSelect('dropdown-container-event',true)" readonly required>
+
+                    <div class="dropdown-container" id="dropdown-container-event">
+                        <div class="dropdown-list" id="dropdown-list-event">
+                            <div value="1" class="dropdown-option">
+                                Pr1
+                                <div class="slot">
+                                    MOnday 09scsdc
+                                </div>
+                            </div>
+                            <hr>
+                            <div value="2" class="dropdown-option">
+                                    Pr1
+                                <div class="slot">
+                                    MOnday 09scsdc
+                                </div>
+                            </div>
+                            <hr>
+                            <div value="3" class="dropdown-option">
+                                Pr1
+                                <div class="slot">
+                                    MOnday 09scsdc
+                                </div>
+                            </div>
+                            <hr>
+                            <div value="4" class="dropdown-option">
+                                Pr1
+                                <div class="slot">
+                                    MOnday 09scsdc
+                                </div>
+                            </div>
+                            <hr>
+                            <div value="5" class="dropdown-option">
+                                Pr1
+                                <div class="slot">
+                                    MOnday 09scsdc
+                                </div>
+                            </div>
+                            <hr>
+                            <div value="6" class="dropdown-option">
+                                Pr1
+                                <div class="slot">
+                                    MOnday 09scsdc
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+                <!-- Description -->
+                <div class="FormRow">
+                    <textarea type="text" id="description" name="description" placeholder="Describe your message" maxlength="250" required></textarea>
+                </div>
+
+                <div class="button">
+                    <button
+                        type="submit"
+                        id="req-submit"
+                        name="submit"
+                        disabled="true"
+                        class="submit">
+                        <i class="fa-regular fa-paper-plane" style="color: #f1f2f4;"></i>
+                        Request
+                    </button>
+
+                    <button
+                        style="display: none;"
+                        id="req-submiting"
+                        disabled="true"
+                        class="submit"> Sending request...
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -229,6 +630,10 @@
             </div>
 
         </div>
+        <div class="programs">
+            <div onclick="programListView(true)" class="prgrm-bnt"><i class="fa-regular fa-rectangle-list" style=" margin-right: 5px"></i> Program List</div>
+            <div onclick="SongReqView(true)" class="prgrm-bnt"><i class="fa-solid fa-music" style="margin-right: 5px"></i> Request Song</div>
+        </div>
     </div>
 
     <div class="features">
@@ -367,8 +772,8 @@
             <div class="sponsorForm">
                 <h3>We appreciate hearing from you</h3>
 
-                <form action="/add-user" method="post" oninput="validateForm()" onsubmit="return submitLoginform()">
-                    <div class="div"> </div>
+                <form action="/add-user" method="post" oninput="validateForm()" onsubmit="return submitSponsorform()">
+                    <!-- <div class="div"> </div> -->
                     <div class="Form">
                         <!-- Name -->
                         <div class="FormRow">
@@ -456,17 +861,15 @@
 
         if (emailPattern.test(email) && name.length > 0 && company.length > 0 && contact.length > 0 && address.length > 0 && description.length > 0) {
             button.disabled = false;
-            console.log('false');
 
         } else {
             button.disabled = true;
-            console.log('true');
 
         }
 
     }
 
-    function submitLoginform() {
+    function submitSponsorform() {
         let button = document.getElementById('submit');
         let button2 = document.getElementById('submiting');
         button.style.display = 'none';
@@ -757,7 +1160,7 @@
             pause.forEach((e) => {
                 e.style.display = "block";
             })
-        
+
             // setTimeout(() => {
 
             //     pause.classList.toggle("show")
@@ -773,7 +1176,7 @@
                 e.style.display = "none";
             })
 
-    
+
             // radio.volume = 0;
             radio.pause();
             deactiveSpike();
@@ -886,6 +1289,169 @@
 
         }
 
+    }
+
+    function openSignin(val) {
+        const form = document.querySelector(".signin-form");
+
+        if (val) {
+            form.style.display = "flex"
+        } else {
+            form.style.display = "none"
+        }
+    }
+
+    function validateLogin() {
+        const username = document.getElementById("username").value.length;
+        const password = document.getElementById("password").value.length;
+        const login = document.getElementById("login-submit");
+
+        if (username > 0 && password > 0) {
+            login.disabled = false;
+        } else {
+            login.disabled = true;
+        }
+    }
+
+    function submitLoginform() {
+        let button = document.getElementById('login-submit');
+        let button2 = document.getElementById('login-submiting');
+        button.style.display = 'none';
+        button2.style.display = 'block';
+        return true;
+    }
+
+    function mobileOpenSignin(val) {
+        const form = document.querySelector(".mobile-form");
+
+        if (val) {
+            form.style.display = "flex"
+        } else {
+            form.style.display = "none"
+        }
+    }
+
+    function mobileValidateLogin() {
+        const username = document.getElementById("mobile-username").value.length;
+        const password = document.getElementById("mobile-password").value.length;
+        const login = document.getElementById("mobile-login-submit");
+
+        if (username > 0 && password > 0) {
+            login.disabled = false;
+        } else {
+            login.disabled = true;
+        }
+    }
+
+    function mobileSubmitLoginform() {
+        let button = document.getElementById('mobile-login-submit');
+        let button2 = document.getElementById('mobile-login-submiting');
+        button.style.display = 'none';
+        button2.style.display = 'block';
+        return true;
+    }
+
+    function programListView(val) {
+        const pList = document.querySelector(".program-overlay").style;
+        if (val) {
+            pList.display = "block";
+        } else {
+
+            document.querySelector(".program-view").classList.add("close-program-view");
+            setTimeout(() => {
+                pList.display = "none";
+                document.querySelector(".program-view").classList.remove("close-program-view");
+
+            }, 300)
+        }
+
+    }
+
+    function SongReqView(val) {
+
+        const pList = document.querySelector(".req-overlay").style;
+        if (val) {
+            pList.display = "block";
+        } else {
+
+            document.querySelector(".req-view").classList.add("close-req-view");
+            setTimeout(() => {
+                pList.display = "none";
+                document.querySelector(".req-view").classList.remove("close-req-view");
+
+            }, 300)
+        }
+
+    }
+
+    function openSelect(ID, value) {
+        const select = document.getElementById(ID);
+
+        if (!value) {
+            select.style.display = 'none';
+        } else {
+            select.style.display = 'flex';
+        }
+    }
+
+
+    document.getElementById("dropdown-list-event").addEventListener('click', selectEvent)
+
+
+    function selectEvent(event) {
+
+        const selectEvent = document.getElementById('select-event');
+        const selectEventValue = document.getElementById('select-event-value');
+
+        if (event.target.classList.contains('dropdown-option')) {
+            let eventName = event.target.textContent.trim();
+            eventName = eventName.split(" ");
+            console.log(eventName[0]);
+            
+            selectEvent.setAttribute('value', eventName[0])
+            selectEventValue.setAttribute('value', event.target.getAttribute('value'))
+
+            openSelect('dropdown-container-event', false);
+            validateReqForm();
+
+            // //console.log(event.target.getAttribute('value'), event.target.textContent);
+        }
+        else{
+            console.log('Wrong');
+            
+        }
+    }
+
+
+    function validateReqForm() {
+        const reqName = document.getElementById("req-name").value.length;
+        const song = document.getElementById("song").value.length;
+        const movie = document.getElementById("movie").value.length;
+        const from = document.getElementById("from").value.length;
+        const event = document.getElementById("select-event-value").value.length;
+        const description = document.getElementById("description").value.length;
+        const req = document.getElementById("req-submit");
+
+        if (reqName > 0 && song > 0 && movie > 0 && from > 0 && event > 0 && description > 0) {
+            req.disabled = false;
+        } else {
+            req.disabled = true;
+        }
+    }
+
+    function submitReqForm() {
+        console.log("asdasds");
+        
+        let button = document.getElementById('req-submit');
+        let button2 = document.getElementById('req-submiting');
+        button.style.display = 'none';
+        button2.style.display = 'block';
+        return true;
+    }
+
+    function goToDash(){
+        // window.location.href = "/dashboard"
+        window.open("/dashboard", "_blank");
     }
 </script>
 
