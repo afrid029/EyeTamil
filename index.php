@@ -16,6 +16,13 @@
 <body id="body">
     <div class="body-cover"></div>
 
+
+    <div class="alert-container" id="alert">
+        <div class="alert" id="alertCont">
+            <p id="alert-text"></p>
+        </div>
+    </div>
+
     <div class="buttons">
         <div onclick="goToSponsor(true)" class="sponsor">
             <i class="fa-solid fa-atom"></i>
@@ -27,6 +34,7 @@
         </div>
     </div>
 
+    <!-- Sign IN -->
     <div class="signin-form">
         <h3>Sign In</h3>
         <div class="close">
@@ -42,9 +50,9 @@
 
             <div class="button">
 
-            
 
-            <button onclick="goToDash()" type="button"
+
+                <button onclick="goToDash()" type="button"
                     class="submit">Dashboard</button>
                 <!-- <button
                     type="submit"
@@ -69,6 +77,7 @@
         <i class="fa-solid fa-jet-fighter-up" style="color: #f3f3f2;"></i>
     </div>
 
+    <!-- Mobile SIde bar -->
     <div class="mobile-side-bar">
         <div class="mobile-side-bar-content">
             <div onclick="slideBar(false)" class="close">x</div>
@@ -101,8 +110,8 @@
 
                         <div class="button">
 
-                        <button onclick="goToDash()" type="button"
-                        class="submit">Dashboard</button>
+                            <button onclick="goToDash()" type="button"
+                                class="submit">Dashboard</button>
                             <!-- <button
                                 type="submit"
                                 id="mobile-login-submit"
@@ -127,6 +136,7 @@
         </div>
     </div>
 
+    <!-- Show Programs -->
     <div class="program-overlay">
         <div class="program-view">
             <div class="title">
@@ -338,13 +348,15 @@
         </div>
     </div>
 
+
+    <!-- Song Request -->
     <div class="req-overlay">
         <div class="req-view">
             <div class="title">
                 <h4>Dedicate a song to your favorites</h4>
                 <div onclick="SongReqView(false)" class="r-close">x</div>
             </div>
-            <form class="Form" action="#" method="post" oninput="validateReqForm()" onsubmit="return submitReqForm()">
+            <form class="Form" id="song-form" method="post" oninput="validateReqForm()">
                 <!-- Requester Name -->
                 <div class="FormRow">
                     <input type="text" id="req-name" name="req-name" placeholder="Your name" required>
@@ -368,60 +380,11 @@
 
                 <div class="FormRow">
 
-                    <input type="text" name="event" id="select-event-value" hidden required>
-                    <input style="cursor: pointer;" type="text" id="select-event" placeholder="Select Program" onclick="openSelect('dropdown-container-event',true)" readonly required>
+                    <select name="select-event" id="select-event" required>
 
-                    <div class="dropdown-container" id="dropdown-container-event">
-                        <div class="dropdown-list" id="dropdown-list-event">
-                            <div value="1" class="dropdown-option">
-                                Pr1
-                                <div class="slot">
-                                    MOnday 09scsdc
-                                </div>
-                            </div>
-                            <hr>
-                            <div value="2" class="dropdown-option">
-                                    Pr1
-                                <div class="slot">
-                                    MOnday 09scsdc
-                                </div>
-                            </div>
-                            <hr>
-                            <div value="3" class="dropdown-option">
-                                Pr1
-                                <div class="slot">
-                                    MOnday 09scsdc
-                                </div>
-                            </div>
-                            <hr>
-                            <div value="4" class="dropdown-option">
-                                Pr1
-                                <div class="slot">
-                                    MOnday 09scsdc
-                                </div>
-                            </div>
-                            <hr>
-                            <div value="5" class="dropdown-option">
-                                Pr1
-                                <div class="slot">
-                                    MOnday 09scsdc
-                                </div>
-                            </div>
-                            <hr>
-                            <div value="6" class="dropdown-option">
-                                Pr1
-                                <div class="slot">
-                                    MOnday 09scsdc
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-
-                    </div>
+                    </select>
 
                 </div>
-
-
 
 
                 <!-- Description -->
@@ -463,7 +426,8 @@
     </svg>
 
 
-    <audio id="audioPlayer" src="http://streams.radio.co/s937ac5492/listen"></audio>
+    <audio id="audioPlayer" src=""></audio>
+    <!-- http://streams.radio.co/s937ac5492/listen -->
     <div class="nav">
 
 
@@ -848,51 +812,12 @@
 </body>
 
 <script>
-    function validateForm() {
-        const name = document.getElementById('select-name').value;
-        const company = document.getElementById('select-company').value;
-        const email = document.getElementById('select-email').value;
-        const contact = document.getElementById('select-contact').value;
-        const address = document.getElementById('select-address').value;
-        const description = document.getElementById('select-description').value;
-        const button = document.getElementById('submit');
-
-        let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-        if (emailPattern.test(email) && name.length > 0 && company.length > 0 && contact.length > 0 && address.length > 0 && description.length > 0) {
-            button.disabled = false;
-
-        } else {
-            button.disabled = true;
-
-        }
-
-    }
-
-    function submitSponsorform() {
-        let button = document.getElementById('submit');
-        let button2 = document.getElementById('submiting');
-        button.style.display = 'none';
-        button2.style.display = 'block';
-        return true;
-    }
-
-    function scrollToTop() {
-        const element = document.getElementById('body');
-        element.scrollIntoView({
-            behavior: 'smooth' // This adds smooth scrolling
-        });
-
-    }
-
-    function goToSponsor(val) {
-        const element = document.querySelector('.sponsorForm');
-        if (!val) {
-            slideBar(false)
-        }
-        element.scrollIntoView({
-            behavior: 'smooth' // This adds smooth scrolling
-        });
+    window.addEventListener("resize", initSlider);
+    // window.addEventListener("load", initSlider);
+    // window.addEventListener("load", EventLoader);
+    window.onload = function() {
+        EventLoader();
+        loadStream();
     }
 
     const scrollButton = document.querySelector('.scroll');
@@ -948,89 +873,316 @@
         }
     };
 
+    function loadStream() {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/Controllers/GetStream.php', true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+
+                var response = JSON.parse(xhr.responseText);
+
+                // console.log(response);
+
+
+                const radioContainer = document.getElementById('audioPlayer')
+                radioContainer.setAttribute('src', response.data['stream'])
+
+
+            }
+        };
+
+        xhr.send();
+
+    }
+
+
+    function validateForm() {
+        const name = document.getElementById('select-name').value;
+        const company = document.getElementById('select-company').value;
+        const email = document.getElementById('select-email').value;
+        const contact = document.getElementById('select-contact').value;
+        const address = document.getElementById('select-address').value;
+        const description = document.getElementById('select-description').value;
+        const button = document.getElementById('submit');
+
+        let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        if (emailPattern.test(email) && name.length > 0 && company.length > 0 && contact.length > 0 && address.length > 0 && description.length > 0) {
+            button.disabled = false;
+
+        } else {
+            button.disabled = true;
+
+        }
+
+    }
+
+    function submitSponsorform() {
+        let button = document.getElementById('submit');
+        let button2 = document.getElementById('submiting');
+        button.style.display = 'none';
+        button2.style.display = 'block';
+        return true;
+    }
+
+    function scrollToTop() {
+        const element = document.getElementById('body');
+        element.scrollIntoView({
+            behavior: 'smooth' // This adds smooth scrolling
+        });
+
+    }
+
+    function goToSponsor(val) {
+        const element = document.querySelector('.sponsorForm');
+        if (!val) {
+            slideBar(false)
+        }
+        element.scrollIntoView({
+            behavior: 'smooth' // This adds smooth scrolling
+        });
+    }
+
+
+
 
     function EventLoader() {
 
-        setTimeout(() => {
-            document.querySelector(".container-spinner").style.display = "none"
-            document.querySelector(".container").style.display = "block"
-            for (let i = 0; i < 15; i++) {
+        const xhr = new XMLHttpRequest();
+        // let today = new Date("2025-02-17");
+        // const day = today.getDay() == 0 ? 7 : today.getDay();
 
-                if (i == 5) {
-                    const activeItem = document.createElement('div');
-                    activeItem.classList.add("active-item");
+        // console.log(day);
 
-                    const activeItemCover = document.createElement('div');
-                    activeItemCover.classList.add("active-item-cover");
+        let currentDate = new Date();
 
-                    const activeImg = document.createElement('img');
-                    activeImg.classList.add("active-src");
-                    activeImg.setAttribute('src', 'Assets/Images/test.jpeg');
+        // Specify the options for the desired time zone (Toronto)
+        let options = {
+            timeZone: 'America/Toronto',
+            hour12: false,
+            weekday: 'short',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        };
 
-                    const activeItemText = document.createElement('div');
-                    activeItemText.classList.add("active-item-text");
+        let timeInToronto = new Intl.DateTimeFormat('en-US', options).format(currentDate);
 
-                    const activeH4 = document.createElement('h4');
-                    activeH4.textContent = "ON Air";
+        timeInToronto = timeInToronto.split(' ')
+        const WeekDays = {
+            'Mon': 1,
+            'Tue': 2,
+            'Wed': 3,
+            'Thu': 4,
+            'Fri': 5,
+            'Sat': 6,
+            'Sun': 7
+        }
 
-                    const activeSlot = document.createElement('div');
-                    activeSlot.classList.add("slot");
+        const day = WeekDays[timeInToronto[0]];
+        const time = timeInToronto[1].split(':');
+        const curHour = time[0];
+        const curMin = time[1];
 
-                    const activeSpan = document.createElement('span');
-                    activeSpan.textContent = "Nilachoru";
+        const curTimeInSeconds = curHour * 3600 + curMin * 60;
 
 
-                    activeSlot.appendChild(activeSpan);
-                    activeItemText.appendChild(activeH4);
-                    activeItemText.appendChild(activeSlot);
-                    activeItem.appendChild(activeItemCover);
-                    activeItem.appendChild(activeImg);
-                    activeItem.appendChild(activeItemText);
+        xhr.open('GET', '/Controllers/GetTodayEvents.php?today=' + day, true);
 
-                    document.querySelector(".image-list").appendChild(activeItem);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                 document.querySelector(".container-spinner").style.display = "none"
+                document.querySelector(".container").style.display = "block"
 
-                } else {
-                    const imageItem = document.createElement('div');
-                    imageItem.classList.add("image-item");
+                var response = JSON.parse(xhr.responseText).data;
 
-                    const imageItemCover = document.createElement('div');
-                    imageItemCover.classList.add("image-item-cover");
+                for (let i = 0; i < response.length; i++) {
+                    const Sthour = response[i].start.split(':')[0];
+                    const StMin = response[i].start.split(':')[1];
+                    const startTimeInSeconds = Sthour * 3600 + StMin * 60;
 
-                    const img = document.createElement('img');
-                    img.classList.add("image-src");
-                    img.setAttribute('src', 'Assets/Images/test.jpeg');
+                    const Enhour = response[i].end.split(':')[0];
+                    const EnMin = response[i].end.split(':')[1];
+                    const endTimeInSeconds = Enhour * 3600 + EnMin * 60;
 
-                    const imageItemText = document.createElement('div');
-                    imageItemText.classList.add("image-item-text");
+                    const imgSrc = response[i].image;
+                    const prgName = response[i].name;
+                    const Start = response[i].start;
+                    const End = response[i].end;
 
-                    const h4 = document.createElement('h4');
-                    h4.textContent = "Rakankal 16";
+                    console.log(startTimeInSeconds);
+                    console.log(endTimeInSeconds);
+                    console.log(curTimeInSeconds);
+                    
+                    
+                    
 
-                    const slot = document.createElement('div');
-                    slot.classList.add("slot");
+                    if(curTimeInSeconds >= startTimeInSeconds && curTimeInSeconds < endTimeInSeconds){
+                        console.log('Acrtive');
+                        
+                        const activeItem = document.createElement('div');
+                        activeItem.classList.add("active-item");
 
-                    const i = document.createElement('i');
-                    i.classList.add('fa-brands', 'fa-creative-commons-sampling', 'icon');
+                        const activeItemCover = document.createElement('div');
+                        activeItemCover.classList.add("active-item-cover");
 
-                    const span = document.createElement('span');
-                    span.textContent = "06:00 PM - 08:00 PM";
+                        const activeImg = document.createElement('img');
+                        activeImg.classList.add("active-src");
+                        // const img = response[i].image;
+                        activeImg.setAttribute('src', imgSrc);
 
-                    slot.appendChild(i);
-                    slot.appendChild(span);
-                    imageItemText.appendChild(h4);
-                    imageItemText.appendChild(slot);
-                    imageItem.appendChild(imageItemCover);
-                    imageItem.appendChild(img);
-                    imageItem.appendChild(imageItemText);
+                        const activeItemText = document.createElement('div');
+                        activeItemText.classList.add("active-item-text");
 
-                    document.querySelector(".image-list").appendChild(imageItem);
+                        const activeH4 = document.createElement('h4');
+                        activeH4.textContent = "ON Air";
 
+                        const activeSlot = document.createElement('div');
+                        activeSlot.classList.add("slot");
+
+                        const activeSpan = document.createElement('span');
+                        activeSpan.textContent = prgName;
+
+
+                        activeSlot.appendChild(activeSpan);
+                        activeItemText.appendChild(activeH4);
+                        activeItemText.appendChild(activeSlot);
+                        activeItem.appendChild(activeItemCover);
+                        activeItem.appendChild(activeImg);
+                        activeItem.appendChild(activeItemText);
+
+                        document.querySelector(".image-list").appendChild(activeItem);
+                    }else {
+                        const imageItem = document.createElement('div');
+                        imageItem.classList.add("image-item");
+
+                        const imageItemCover = document.createElement('div');
+                        imageItemCover.classList.add("image-item-cover");
+
+                        const img = document.createElement('img');
+                        img.classList.add("image-src");
+                        // const imgSrc = response[i].image;
+                        img.setAttribute('src',imgSrc );
+
+                        const imageItemText = document.createElement('div');
+                        imageItemText.classList.add("image-item-text");
+
+                        const h4 = document.createElement('h4');
+                        h4.textContent = prgName;
+
+                        const slot = document.createElement('div');
+                        slot.classList.add("slot");
+
+                        const i = document.createElement('i');
+                        i.classList.add('fa-brands', 'fa-creative-commons-sampling', 'icon');
+
+                        const span = document.createElement('span');
+                        span.textContent = Start + ' - ' + End;
+
+                        slot.appendChild(i);
+                        slot.appendChild(span);
+                        imageItemText.appendChild(h4);
+                        imageItemText.appendChild(slot);
+                        imageItem.appendChild(imageItemCover);
+                        imageItem.appendChild(img);
+                        imageItem.appendChild(imageItemText);
+
+                        document.querySelector(".image-list").appendChild(imageItem);
+
+                    }
+
+                  
+
+
+
+        
+                    
+
+                    // if (i == 5) {
+                    //     const activeItem = document.createElement('div');
+                    //     activeItem.classList.add("active-item");
+
+                    //     const activeItemCover = document.createElement('div');
+                    //     activeItemCover.classList.add("active-item-cover");
+
+                    //     const activeImg = document.createElement('img');
+                    //     activeImg.classList.add("active-src");
+                    //     activeImg.setAttribute('src', 'Assets/Images/test.jpeg');
+
+                    //     const activeItemText = document.createElement('div');
+                    //     activeItemText.classList.add("active-item-text");
+
+                    //     const activeH4 = document.createElement('h4');
+                    //     activeH4.textContent = "ON Air";
+
+                    //     const activeSlot = document.createElement('div');
+                    //     activeSlot.classList.add("slot");
+
+                    //     const activeSpan = document.createElement('span');
+                    //     activeSpan.textContent = "Nilachoru";
+
+
+                    //     activeSlot.appendChild(activeSpan);
+                    //     activeItemText.appendChild(activeH4);
+                    //     activeItemText.appendChild(activeSlot);
+                    //     activeItem.appendChild(activeItemCover);
+                    //     activeItem.appendChild(activeImg);
+                    //     activeItem.appendChild(activeItemText);
+
+                    //     document.querySelector(".image-list").appendChild(activeItem);
+
+                    // } else {
+                    //     const imageItem = document.createElement('div');
+                    //     imageItem.classList.add("image-item");
+
+                    //     const imageItemCover = document.createElement('div');
+                    //     imageItemCover.classList.add("image-item-cover");
+
+                    //     const img = document.createElement('img');
+                    //     img.classList.add("image-src");
+                    //     img.setAttribute('src', 'Assets/Images/test.jpeg');
+
+                    //     const imageItemText = document.createElement('div');
+                    //     imageItemText.classList.add("image-item-text");
+
+                    //     const h4 = document.createElement('h4');
+                    //     h4.textContent = "Rakankal 16";
+
+                    //     const slot = document.createElement('div');
+                    //     slot.classList.add("slot");
+
+                    //     const i = document.createElement('i');
+                    //     i.classList.add('fa-brands', 'fa-creative-commons-sampling', 'icon');
+
+                    //     const span = document.createElement('span');
+                    //     span.textContent = "06:00 PM - 08:00 PM";
+
+                    //     slot.appendChild(i);
+                    //     slot.appendChild(span);
+                    //     imageItemText.appendChild(h4);
+                    //     imageItemText.appendChild(slot);
+                    //     imageItem.appendChild(imageItemCover);
+                    //     imageItem.appendChild(img);
+                    //     imageItem.appendChild(imageItemText);
+
+                    //     document.querySelector(".image-list").appendChild(imageItem);
+
+                    // }
                 }
-            }
 
-            initSlider();
-            scrollToCenter();
-        }, 2000)
+                initSlider();
+                scrollToCenter();
+
+
+
+
+            }
+        };
+
+        xhr.send();
+
 
     }
 
@@ -1107,10 +1259,6 @@
 
 
     }
-
-    window.addEventListener("resize", initSlider);
-    // window.addEventListener("load", initSlider);
-    window.addEventListener("load", EventLoader);
 
     function scrollToCenter() {
         const imageList = document.querySelector(".image-list");
@@ -1371,6 +1519,36 @@
 
         const pList = document.querySelector(".req-overlay").style;
         if (val) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/Controllers/GetProgramList.php', true);
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    const response = JSON.parse(xhr.responseText)
+
+                    const select = document.getElementById('select-event')
+                    select.innerHTML = '';
+                    const FixedOption = document.createElement('option')
+                    FixedOption.innerText = 'Select Program';
+                    FixedOption.setAttribute('selected', true);
+                    FixedOption.setAttribute('hidden', true);
+                    FixedOption.setAttribute('value', 'none');
+                    select.appendChild(FixedOption);
+
+
+                    for (let i = 0; i < response.data.length; i++) {
+                        const option = document.createElement('option');
+                        option.innerText = response.data[i]['name'];
+                        option.setAttribute('value', response.data[i]['ID']);
+                        select.appendChild(option);
+                    }
+
+
+                } else {
+                    console.error('Error submitting form ', xhr.statusText);
+                }
+            };
+
+            xhr.send();
             pList.display = "block";
         } else {
 
@@ -1395,63 +1573,112 @@
     }
 
 
-    document.getElementById("dropdown-list-event").addEventListener('click', selectEvent)
-
-
-    function selectEvent(event) {
-
-        const selectEvent = document.getElementById('select-event');
-        const selectEventValue = document.getElementById('select-event-value');
-
-        if (event.target.classList.contains('dropdown-option')) {
-            let eventName = event.target.textContent.trim();
-            eventName = eventName.split(" ");
-            console.log(eventName[0]);
-            
-            selectEvent.setAttribute('value', eventName[0])
-            selectEventValue.setAttribute('value', event.target.getAttribute('value'))
-
-            openSelect('dropdown-container-event', false);
-            validateReqForm();
-
-            // //console.log(event.target.getAttribute('value'), event.target.textContent);
-        }
-        else{
-            console.log('Wrong');
-            
-        }
-    }
-
 
     function validateReqForm() {
         const reqName = document.getElementById("req-name").value.length;
         const song = document.getElementById("song").value.length;
         const movie = document.getElementById("movie").value.length;
         const from = document.getElementById("from").value.length;
-        const event = document.getElementById("select-event-value").value.length;
+        const event = document.getElementById("select-event").value;
         const description = document.getElementById("description").value.length;
         const req = document.getElementById("req-submit");
 
-        if (reqName > 0 && song > 0 && movie > 0 && from > 0 && event > 0 && description > 0) {
+        if (reqName > 0 && song > 0 && movie > 0 && from > 0 && event != 'none' && description > 0) {
             req.disabled = false;
         } else {
             req.disabled = true;
         }
     }
 
-    function submitReqForm() {
-        console.log("asdasds");
-        
+    //Add Song request
+    document.getElementById("song-form").addEventListener('submit', function(event) {
         let button = document.getElementById('req-submit');
         let button2 = document.getElementById('req-submiting');
         button.style.display = 'none';
         button2.style.display = 'block';
-        return true;
-    }
 
-    function goToDash(){
+        event.preventDefault();
+
+        const formData = new FormData;
+
+
+        const reqName = document.getElementById('req-name').value;
+        const reqFrom = document.getElementById('from').value;
+        const song = document.getElementById('song').value;
+        const movie = document.getElementById('movie').value;
+        const eventName = document.getElementById('select-event').value;
+        const description = document.getElementById('description').value;
+
+        formData.append('reqName', reqName);
+        formData.append('reqFrom', reqFrom);
+        formData.append('song', song);
+        formData.append('movie', movie);
+        formData.append('event', eventName);
+        formData.append('description', description);
+        formData.append('submit', true);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Controllers/AddSongRequest.php', true);
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                const data = JSON.parse(xhr.responseText)
+
+                button.style.display = 'block';
+                button2.style.display = 'none';
+
+
+                if (data.status) {
+                    SongReqView(false);
+                    alertRise(true, data.message)
+                    document.getElementById('req-name').value = '';
+                    document.getElementById('from').value = '';
+                    document.getElementById('song').value = '';
+                    document.getElementById('movie').value = '';
+                    document.getElementById('select-event').value = 'none';
+                    document.getElementById('description').value = '';
+                } else {
+                    SongReqView(false);
+                    alertRise(false, data.message)
+                    document.getElementById('req-name').value = '';
+                    document.getElementById('from').value = '';
+                    document.getElementById('song').value = '';
+                    document.getElementById('movie').value = '';
+                    document.getElementById('select-event').value = 'none';
+                    document.getElementById('description').value = '';
+                }
+
+                validateReqForm();
+            } else {
+                console.error('Error submitting form ', xhr.statusText);
+            }
+        };
+
+        xhr.send(formData);
+    });
+
+    function goToDash() {
         // window.location.href = "/dashboard"
         window.open("/dashboard", "_blank");
+    }
+
+    function alertRise(status, message) {
+
+        document.getElementById('alert-text').innerText = message;
+
+        if (status) {
+            document.getElementById('alertCont').style.backgroundColor = '#1D7524';
+        } else {
+            document.getElementById('alertCont').style.backgroundColor = '#E44C4C';
+        }
+
+        setTimeout(() => {
+            document.getElementById('alert').style.display = 'flex';
+        }, 1000);
+
+        setTimeout(() => {
+            document.getElementById('alert').style.display = 'none';
+        }, 6000);
+
     }
 </script>
 

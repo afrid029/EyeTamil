@@ -19,6 +19,7 @@ background: linear-gradient(90deg, #1e245e, #4328ac);
   position: fixed;
   z-index: 30;
   top: 0;
+  padding-bottom: 10px;
 }
 
 .nav img {
@@ -102,6 +103,17 @@ a:hover {
     margin: auto;
     background-color: white;
     border-radius: 15px;
+    overflow: auto;
+}
+
+.del-model {
+    height: 25% !important;
+    width: 50% !important;
+    margin-top: 100px;
+}
+.del-model .title {
+    display: flex !important;
+    justify-content: flex-end !important;
 }
 
 
@@ -194,7 +206,7 @@ a:hover {
    width: 100%;
    display: grid;
    margin-top: 2vh;
-   grid-template-columns: repeat(5, 1fr); 
+   grid-template-columns: repeat(4, 1fr); 
    gap: 10px;
    font-size: 0.8rem;
   
@@ -238,17 +250,23 @@ a:hover {
 .modify div {
     background-color: #ff9030;
     border-radius: 8px;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     width: -web-fill-available;
     padding: 2px 8px;
     cursor: pointer;
     text-align: center;
 }
 
+.anounce-status {
+    font-style: italic;
+}
+
 
 .notes {
     width: 100%;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
+    color: black !important;
+    opacity: 1;
 
 }
 .note-edit {
@@ -256,7 +274,7 @@ a:hover {
     padding: 1px 6px;
     background-color: #ff9030;
     border-radius: 4px;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     cursor: pointer;
 }
 
@@ -273,6 +291,28 @@ a:hover {
     transition: all 0.5s linear;
 }
 
+.yes, .no {
+    width: fit-content;
+    padding: 1px 15px;
+    margin-top: 2vh;
+    color: white !important;
+    outline: none;
+    border: transparent;
+}
+
+.yes {
+    background-color: green !important;
+}
+
+.no {
+    background-color: red !important;
+}
+
+.opt-btn {
+    gap:15px;
+    justify-content: space-evenly !important;
+}
+
 
 .btn:disabled {
     border: transparent;
@@ -284,7 +324,23 @@ a:hover {
 .desc-info {
     font-size: 0.8rem;
     opacity: 0.8;
-    margin-top: 5px;
+    margin-top: 8px;
+}
+
+.req-time {
+    margin-top: 15px;
+    font-style: italic;
+    color: #040725;
+}
+
+.schedule-body hr {
+    margin-bottom: 2vh;
+}
+
+.schedule-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @media (max-width: 600px) {
@@ -299,6 +355,9 @@ a:hover {
     .nav{
         flex-direction: column;
         align-items: center;
+        height: 110px;
+        line-height: 20px;
+        padding-bottom: 0px;
     }
     .nav img {
         width: 65px;
@@ -309,5 +368,51 @@ a:hover {
     .nav .ul {
         justify-content: center;
         margin-right: 0px;
+
+    }
+
+    .body {
+        top:130px;
+    }
+
+    .del-model {
+        width: 70% !important;
     }
 }
+
+@media (max-width: 400px) {
+    .nav .ul {
+      
+        font-size: 0.9rem;
+
+    }
+}
+
+
+
+.alert-container {
+    display: none;
+    width: inherit;
+    height: auto;
+    bottom: 25px;
+    position: fixed;
+    color: #f3efef;
+    z-index: 1000;
+  }
+  
+  .alert-container  .alert {
+    border-radius: 5px;
+    background-color: black;
+    width: 60vw;
+    display: flex;
+    align-items: center;
+    margin: auto;
+  }
+  
+  .alert-container .alert p {
+    text-align: left;
+    margin: 15px;
+    width: inherit;
+    font-size: 12px;
+    font-family: 'inter', serif;
+  }

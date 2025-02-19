@@ -31,17 +31,36 @@
 
   }
 
+  .row {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .row div {
+    width: 100% !important;
+  }
+
+  .row small {
+    font-size: 0.5rem;
+  }
+
 
   textarea {
     height: 120px !important;
     
   }
 
+  input {
+    text-transform: none;
+  }
+
   
-  .FormRow input, textarea {
+  .FormRow input, textarea, select {
     height: 40px;
     width: 100%;
-    font-family: 'Monomakh', serif;
+    /* font-family: 'Monomakh', serif; */
     padding-left: 5px;
     border-color: transparent;
     font-weight: 400;
@@ -51,7 +70,18 @@
 
   }
 
-  input:focus, textarea:focus {
+  label {
+    /* font-family: 'Monomakh', serif; */
+    font-weight: 400;
+    font-style: normal;
+    color: #454444f0;
+    font-size: 0.7rem;
+    margin-bottom: 1.5vh;
+  }
+
+
+
+  input:focus, textarea:focus, select:focus {
     outline: none;
     /* box-shadow: 0 0 10px #000000c4; */
   }
@@ -236,5 +266,21 @@
       width: 70%;
       height: 4.5vh;
       font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px
+    }
+    .row div {
+      width: 100% !important;
+    }
+
+    .row p {
+      font-size: 1rem;
     }
   }
