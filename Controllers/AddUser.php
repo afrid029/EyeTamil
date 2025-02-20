@@ -1,6 +1,10 @@
 <?php
 
     if(isset($_POST['submit'])){
+        if (!isset($_COOKIE['user'])) {
+            header('Location: /');
+            exit();
+        }
       
         include('DBConnectivity.php');
 

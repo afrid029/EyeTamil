@@ -139,6 +139,10 @@
     justify-content: center;
   }
 
+  .dash-button {
+    width: 80% !important;
+  }
+
   .submit {
     background-color: #f18314;
     border-radius: 25px;

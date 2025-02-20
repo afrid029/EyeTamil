@@ -62,7 +62,7 @@ if(mysqli_num_rows($result) > 0){
     $html .= "<div style = 'margin-left : 15px'>No Song Requests Found</div>";
 }
 
-
+mysqli_close($db);
 
         echo json_encode([
             'html' => $html

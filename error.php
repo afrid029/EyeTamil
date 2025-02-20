@@ -1,8 +1,8 @@
 <html>
     <head>
 
-    <title>CVHTH | Not Found</title>
-    <link rel="icon" type="image/png" href="Assets/Images/cv.png" />
+    <title>Eye Tamil | Not Found</title>
+    <link rel="icon" type="image/png" href="/Assets/Images/logo.png" />
 
     <style>
         .container {

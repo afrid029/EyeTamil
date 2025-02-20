@@ -1,6 +1,11 @@
 <?php
 
     if(isset($_POST['submit'])){
+
+        if (!isset($_COOKIE['user'])) {
+            header('Location: /');
+            exit();
+        }
       
         include('DBConnectivity.php');
 
@@ -33,6 +38,10 @@
             ]);
         }
     }elseif (isset($_POST['announcement-viewed'])) {
+        if (!isset($_COOKIE['user'])) {
+            header('Location: /');
+            exit();
+        }
         include('DBConnectivity.php');
         $ID = $_POST['ID'];
 

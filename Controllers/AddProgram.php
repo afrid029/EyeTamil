@@ -1,6 +1,10 @@
 <?php
 
 if (isset($_POST['submit'])) {
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
 
     include('DBConnectivity.php');
 
@@ -44,6 +48,22 @@ if (isset($_POST['submit'])) {
 
     $ID = 'Event_' . $count . $randomId;
 
+    // $targetDirectory ="../Public/Program/";
+    
+
+    // if(is_dir($targetDirectory)){
+    //     echo 'DIR foUND';
+    // }else {
+    //     echo 'DIR NOTFOUND';
+    // }
+
+    // $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . "/Public/Program/";
+    // if(is_dir($targetDirectory)){
+    //     echo 'DIR foUND';
+    // }else {
+    //     echo 'DIR NOTFOUND';
+    // }
+    // exit();
     $targetDirectory = $_SERVER['DOCUMENT_ROOT'] . "/Public/Program/";
 
     // Get the file extension
@@ -118,6 +138,10 @@ if (isset($_POST['submit'])) {
         ]);
     }
 }else if(isset($_POST['edit-submit'])){
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
     include('DBConnectivity.php');
 
     $schedule = array();
@@ -207,6 +231,10 @@ if (isset($_POST['submit'])) {
         ]);
     }
 } else if(isset($_POST['del-submit'])){
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
     include('DBConnectivity.php');
     $ID = $_POST['ID'];
 
@@ -264,6 +292,10 @@ if (isset($_POST['submit'])) {
      
     }
 } else if(isset($_POST['cover-submit'])) {
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
     include('DBConnectivity.php');
     $ID = $_POST['ID'];
 
@@ -301,11 +333,14 @@ if (isset($_POST['submit'])) {
     $result = mysqli_query($db, $query);
 
     if($result) {
+
+        mysqli_close($db);
         echo json_encode([
             'status' => true,
             'message' => 'Cover Image updated'
         ]);
     } else {
+        mysqli_close($db);
         echo json_encode([
             'status' => false,
             'message' => 'Unable to upload Cover. try again later!'

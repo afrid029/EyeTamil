@@ -19,6 +19,12 @@ switch ($request) {
     case '/dashboard':
         require 'Pages/dashboard.php';
         break;
+    case '/login':
+        require 'Controllers/login.php';
+        break;
+    case '/logoff':
+        require 'Controllers/logoff.php';
+        break;
     case '/rjboard':
         require 'Pages/rjboard.php';
         break;

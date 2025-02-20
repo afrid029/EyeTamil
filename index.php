@@ -7,13 +7,47 @@
     <script src="https://kit.fontawesome.com/a10acb0cd6.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Lexend:wght@100..900&family=Monomakh&family=Noto+Sans+Tamil:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Lexend:wght@100..900&family=Monomakh&family=Noto+Sans+Tamil:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="Assets/CSS/index.css" />
     <link rel="stylesheet" href="Assets/CSS/Form.css" />
 </head>
 
 <body id="body">
+
+    <?php
+    SESSION_START();
+    if (isset($_SESSION['fromAction']) && $_SESSION['fromAction'] === true) { ?>
+
+
+        <div class="alert-container" id="alertSecond">
+            <div class="alert" id="alertContSecond">
+                <p><?php echo $_SESSION['message'] ?></p>
+            </div>
+        </div>
+
+        <?php
+        if ($_SESSION['status'] === true) {
+            echo "<script>document.getElementById('alertContSecond').style.backgroundColor = '#1D7524';</script>";
+        } else {
+            echo "<script>document.getElementById('alertContSecond').style.backgroundColor = '#E44C4C';</script>";
+        }
+        ?>
+        <script>
+            setTimeout(() => {
+                document.getElementById('alertSecond').style.display = 'flex';
+            }, 2000);
+
+            setTimeout(() => {
+                document.getElementById('alertSecond').style.display = 'none';
+            }, 7000);
+        </script>
+    <?php
+    }
+    $_SESSION['fromAction'] = false;
+
+    ?>
+
     <div class="body-cover"></div>
 
 
@@ -40,37 +74,67 @@
         <div class="close">
             <div onclick="openSignin(false)">x</div>
         </div>
-        <form class="Form" action="#" method="post" oninput="validateLogin()" onsubmit="return submitLoginform()">
-            <!-- <div class="FormRow">
-                <input type="text" name="username" id="username" required placeholder="Username">
-            </div>
-            <div class="FormRow">
-                <input type="password" name="password" id="password" required placeholder="Password">
-            </div> -->
 
-            <div class="button">
+        <?php
+        if (isset($_COOKIE['user'])) {
+
+            $data = base64_decode($_COOKIE['user']);
+
+            // Extract the IV (the first 16 bytes)
+            $iv = substr($data, 0, 16);
+
+            // Extract the encrypted email (the rest of the string)
+            $encryptedData = substr($data, 16);
+            $key = '7f8b68e0133a19cce9fa5b7c440c788bf6c5679a3e7e3a4575b99f941607d3b7';
+            // Decrypt the email using AES-256-CBC decryption
+            $decryptedData = openssl_decrypt($encryptedData, 'aes-256-cbc', $key, 0, $iv);
+
+            // $query = "SELECT * from users where email = '$decryptedEmail'";
+            $passedArray = unserialize($decryptedData);
+            $role = $passedArray['role'];
+
+            echo "<div class='button dash-button'>
+                    <button onclick=\"goToDash('$role')\" type='button'
+                    class='submit'>Dashboard</button>
+                </div>";
+        } else {
+        ?>
+            <form class="Form" action="/login" method="post" oninput="validateLogin()" onsubmit="return submitLoginform()">
+                <div class="FormRow">
+                    <input type="text" name="username" id="username" required placeholder="Username">
+                </div>
+                <div class="FormRow">
+                    <input type="password" name="password" id="password" required placeholder="Password">
+                </div>
+
+                <div class="button">
 
 
 
-                <button onclick="goToDash()" type="button"
-                    class="submit">Dashboard</button>
-                <!-- <button
-                    type="submit"
-                    id="login-submit"
-                    name="submit"
-                    disabled="true"
-                    class="submit">
-                    Sign In
-                </button>
+                    <!-- <button onclick="goToDash()" type="button"
+                    class="submit">Dashboard</button> -->
 
-                <button
-                    style="display: none;"
-                    id="login-submiting"
-                    disabled="true"
-                    class="submit"> Signing In...
-                </button> -->
-            </div>
-        </form>
+                    <button
+                        type="submit"
+                        id="login-submit"
+                        name="submit"
+                        disabled="true"
+                        class="submit">
+                        Sign In
+                    </button>
+
+                    <button
+                        style="display: none;"
+                        id="login-submiting"
+                        disabled="true"
+                        class="submit"> Signing In...
+                    </button>
+                </div>
+            </form>
+        <?php
+        }
+        ?>
+
     </div>
 
     <div onclick="scrollToTop()" class="scroll">
@@ -94,41 +158,77 @@
             </div>
             <hr>
             <div class="mobile-side-bar-optn">
+
+
                 <div class="mobile-form">
                     <div onclick="mobileOpenSignin(false)" class="mobile-close">
                         <i class="fa-solid fa-caret-up"></i>
                     </div>
                     <h3>Sign In</h3>
 
-                    <form class="Form" action="#" method="post" oninput="mobileValidateLogin()" onsubmit="return mobileSubmitLoginform()">
-                        <!-- <div class="FormRow">
-                            <input type="text" name="username" id="mobile-username" required placeholder="Username">
-                        </div>
-                        <div class="FormRow">
-                            <input type="password" name="password" id="mobile-password" required placeholder="Password">
-                        </div> -->
 
-                        <div class="button">
 
-                            <button onclick="goToDash()" type="button"
-                                class="submit">Dashboard</button>
-                            <!-- <button
-                                type="submit"
-                                id="mobile-login-submit"
-                                name="submit"
-                                disabled="true"
-                                class="submit">
-                                Sign In
-                            </button>
+                    <?php
+                    if (isset($_COOKIE['user'])) {
 
-                            <button
-                                style="display: none;"
-                                id="mobile-login-submiting"
-                                disabled="true"
-                                class="submit"> Signing In...
-                            </button> -->
-                        </div>
-                    </form>
+                        $data = base64_decode($_COOKIE['user']);
+
+                        // Extract the IV (the first 16 bytes)
+                        $iv = substr($data, 0, 16);
+
+                        // Extract the encrypted email (the rest of the string)
+                        $encryptedData = substr($data, 16);
+                        $key = '7f8b68e0133a19cce9fa5b7c440c788bf6c5679a3e7e3a4575b99f941607d3b7';
+                        // Decrypt the email using AES-256-CBC decryption
+                        $decryptedData = openssl_decrypt($encryptedData, 'aes-256-cbc', $key, 0, $iv);
+
+                        // $query = "SELECT * from users where email = '$decryptedEmail'";
+                        $passedArray = unserialize($decryptedData);
+                        $role = $passedArray['role'];
+
+                        echo "<div class='button dash-button'>
+                    <button onclick=\"goToDash('$role')\" type='button'
+                    class='submit'>Dashboard</button>
+                </div>";
+                    } else {
+                    ?>
+                        <form class="Form" action="/login" method="post" oninput="mobileValidateLogin()" onsubmit="return mobileSubmitLoginform()">
+                            <div class="FormRow">
+                                <input type="text" name="username" id="mobile-username" required placeholder="Username">
+                            </div>
+                            <div class="FormRow">
+                                <input type="password" name="password" id="mobile-password" required placeholder="Password">
+                            </div>
+
+                            <div class="button">
+
+                                <!-- <button onclick="goToDash()" type="button"
+                                class="submit">Dashboard</button> -->
+                                <button
+                                    type="submit"
+                                    id="mobile-login-submit"
+                                    name="submit"
+                                    disabled="true"
+                                    class="submit">
+                                    Sign In
+                                </button>
+
+                                <button
+                                    style="display: none;"
+                                    id="mobile-login-submiting"
+                                    disabled="true"
+                                    class="submit"> Signing In...
+                                </button>
+                            </div>
+                        </form>
+                    <?php
+                    }
+                    ?>
+
+
+
+
+
                 </div>
             </div>
 
@@ -146,204 +246,6 @@
 
             <div class="program-list-body">
 
-                <div class="program-list">
-                    <div class="day">
-                        <h4>Monday</h4>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="program-list">
-                    <div class="day">
-                        <h4>Tuesday</h4>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="program-list">
-                    <div class="day">
-                        <h4>Wednesday</h4>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="program-list">
-                    <div class="day">
-                        <h4>Thursday</h4>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                </div>
-                <div class="program-list">
-                    <div class="day">
-                        <h4>Friday</h4>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                    <div class="list">
-                        <div class="name">
-                            Nilchoru
-                        </div>
-                        <div class="slot">
-                            20:00 - 21:00
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -554,8 +456,11 @@
         <p> &#xA9; Mass Production IT</p>
     </footer> -->
 
+
+
     <div class="container-body">
         <div class="container-body-cover"></div>
+        <div class="time">Time</div>
         <div class="fm-intro">
             <h1>Welcome to EYE<span> தமிழ்</span> FM 102.9</h1>
             <h4>தமிழ் எம் உயிர்க்கு நிகர்!</h4>
@@ -616,7 +521,7 @@
             </div>
         </div>
         <div class="feature-container">
-            <audio id="newsPlayer" src="/Assets/Audio/My Universe.mp3"></audio>
+            <audio id="newsPlayer" src=""></audio>
             <div class="mobile-playing-feature">
                 <div class="mobile-playing-feature-cover"></div>
                 <div class="player-bottom" style="position: relative;">
@@ -626,42 +531,25 @@
                         <i class="fa-regular fa-circle-pause playControl audioPause hide" style="color: #d1811b80;"></i>
                     </div>
                     <div class="news-title">
-                        <h4>Daily News</h4>
-                        <h6>2025/02/12</h6>
+                        <h4></h4>
+                        <h6></h6>
                     </div>
                 </div>
-            </div>
-            <div onclick="selectAudio(event)" class="all-features">
-                <div id="1" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                    <hr class="current_player">
-                </div>
-                <div id="2" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                </div>
-                <div id="3" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                </div>
-                <div id="4" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                </div>
-                <div id="5" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                </div>
-                <div id="6" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
-                </div>
-                <div id="7" class="feature">
-                    <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
-                    <h6>2025/02/12</h6>
+
+                <div id="seekBar" onclick="seekAudio(event)">
+                    <div id="seekBarProgress"></div>
                 </div>
 
+                <div class="duration" style="margin: auto;">
+                    <div class="current">52:25</div>
+                    <div class="total">52:25</div>
+                </div>
+
+            </div>
+
+            <div onclick="selectAudio(event)" class="all-features">
+
+                <!-- All News WIll be loaded here -->
             </div>
             <div class="hr-line">
 
@@ -669,7 +557,7 @@
             <div class="playing-feature">
                 <div class="playing-feature-cover"></div>
 
-                <img class="feature-image" src="Assets/Images/test.jpeg" alt="">
+                <img class="feature-image curr-image" src="" alt="">
 
                 <div class="player-bottom" style="position: relative;">
 
@@ -678,12 +566,23 @@
                         <i class="fa-regular fa-circle-pause playControl audioPause hide" style="color: #d1811b80;"></i>
                     </div>
                     <div class="news-title">
-                        <h4>Daily News</h4>
-                        <h6>2025/02/12</h6>
+                        <h4></h4>
+                        <h6></h6>
                     </div>
                 </div>
 
+                <div id="seekBar2" onclick="seekAudio2(event)">
+                    <div id="seekBarProgress2"></div>
+
+                </div>
+                <div class="duration">
+                    <div class="current">52:25</div>
+                    <div class="total">52:25</div>
+                </div>
             </div>
+
+
+
         </div>
 
     </div>
@@ -736,7 +635,7 @@
             <div class="sponsorForm">
                 <h3>We appreciate hearing from you</h3>
 
-                <form action="/add-user" method="post" oninput="validateForm()" onsubmit="return submitSponsorform()">
+                <form id="sponsor-form" method="post" oninput="validateForm()">
                     <!-- <div class="div"> </div> -->
                     <div class="Form">
                         <!-- Name -->
@@ -812,12 +711,187 @@
 </body>
 
 <script>
+    const radioId = document.getElementById('audioPlayer');
+
+    radioId.addEventListener('canplaythrough', function() {
+        console.log('Stream Loaded')
+        icons = document.querySelectorAll('.playIcon');
+        icons.forEach((el) => {
+            el.style.display = 'block';
+        });
+    });
+
+    // Error event listener to handle any issues with loading the audio
+    radioId.addEventListener('error', function() {
+        console.log("Failed to load stream. Please check the stream key.");
+        // playButton.disabled = true; // Disable the play button in case of error
+    });
+
+    const audioPlayer = document.getElementById('newsPlayer');
+    const seekBar = document.getElementById('seekBar');
+    const seekBarProgress = document.getElementById('seekBarProgress');
+    const seekBar2 = document.getElementById('seekBar2');
+    const seekBarProgress2 = document.getElementById('seekBarProgress2');
+
+
+    let isDragging = false;
+    let isDragging2 = false;
+
+    // Mouse down event: start dragging
+    seekBar.addEventListener('mousedown', function(event) {
+        isDragging = true;
+        seekAudio(event); // Immediately seek to the clicked position
+    });
+
+    seekBar2.addEventListener('mousedown', function(event) {
+        isDragging2 = true;
+        seekAudio2(event); // Immediately seek to the clicked position
+    });
+
+
+
+    // Mouse move event: update the progress while dragging
+    document.addEventListener('mousemove', function(event) {
+        if (isDragging2) {
+            seekBar2.classList.add('grabbing');
+            seekAudio2(event); // Update the seek position as the mouse moves
+        }
+        if (isDragging) {
+            seekBar.classList.add('grabbing');
+            seekAudio(event); // Update the seek position as the mouse moves
+        }
+    });
+
+    // Mouse up event: stop dragging
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+        seekBar.classList.remove('grabbing');
+        isDragging2 = false;
+        seekBar2.classList.remove('grabbing');
+    });
+
+    // Update the seek bar as the audio plays
+    audioPlayer.addEventListener('timeupdate', function() {
+        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        seekBarProgress2.style.width = progress + '%';
+        seekBarProgress.style.width = progress + '%';
+
+        if (audioPlayer.currentTime + 1 > audioPlayer.duration) {
+            console.log('Finishinggg');
+
+
+            controlAudio();
+            seekBarProgress.style.width = '0%';
+            seekBarProgress2.style.width = '0%';
+            audioPlayer.currentTime = 0;
+        }
+
+
+        const currentTime = document.querySelectorAll(".current");
+
+        const duration = audioPlayer.currentTime;
+        const hours = Math.floor(duration / 3600);
+        const minutes = Math.floor((duration % 3600) / 60);
+        const seconds = Math.floor(duration % 60);
+
+        currentTime.forEach((el) => {
+
+            el.innerText = `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        })
+    });
+
+    // When the metadata (duration) of the audio is loaded
+    audioPlayer.addEventListener('loadedmetadata', function() {
+        // Get the duration in seconds
+        const duration = audioPlayer.duration;
+
+        // Calculate hours, minutes, and seconds
+        const hours = Math.floor(duration / 3600);
+        const minutes = Math.floor((duration % 3600) / 60);
+        const seconds = Math.floor(duration % 60);
+
+        const totalTime = document.querySelectorAll(".total");
+
+        totalTime.forEach((el) => {
+            el.innerText = `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        })
+
+        // Display the duration (in hours:minutes:seconds format)
+
+    });
+
+    // Seek to a specific time in the audio when clicking on the seek bar
+    function seekAudio(event) {
+        const rect = seekBar.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const percentage = (offsetX / seekBar.offsetWidth);
+        audioPlayer.currentTime = percentage * audioPlayer.duration;
+
+        const currentTime = document.querySelectorAll(".current");
+
+        currentTime.forEach((el) => {
+            el.innerText = audioPlayer.currentTime;
+        })
+
+    }
+
+    // const audioPlayer2 = document.getElementById('newsPlayer');
+
+
+    // Update the seek bar as the audio plays
+    // audioPlayer2.addEventListener('timeupdate', function () {
+
+    // });
+
+    // Seek to a specific time in the audio when clicking on the seek bar
+    function seekAudio2(event) {
+        const rect = seekBar2.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const percentage = (offsetX / seekBar2.offsetWidth);
+        audioPlayer.currentTime = percentage * audioPlayer.duration;
+
+        const currentTime = document.querySelectorAll(".current");
+        const duration = audioPlayer.currentTime;
+        const hours = Math.floor(duration / 3600);
+        const minutes = Math.floor((duration % 3600) / 60);
+        const seconds = Math.floor(duration % 60);
+
+        currentTime.forEach((el) => {
+
+            el.innerText = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;;
+        })
+    }
+    //Time Show
+
+    setInterval(() => {
+        currentDate = new Date();
+
+        // Specify the options for the desired time zone (Toronto)
+        let options = {
+            timeZone: 'America/Toronto',
+            hour12: true,
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        let timeInToronto = new Intl.DateTimeFormat('en-US', options).format(currentDate);
+
+        document.querySelector(".time").innerText = timeInToronto;
+
+
+    }, 1000)
+
     window.addEventListener("resize", initSlider);
     // window.addEventListener("load", initSlider);
     // window.addEventListener("load", EventLoader);
     window.onload = function() {
-        EventLoader();
         loadStream();
+        EventLoader();
+        FeatureLoader();
+        AllProgramLoad();
     }
 
     const scrollButton = document.querySelector('.scroll');
@@ -897,6 +971,87 @@
 
     }
 
+    function AllProgramLoad() {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/Controllers/GetAllProgram.php', true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+
+                var response = JSON.parse(xhr.responseText).data;
+
+                const PlListBody = document.querySelector(".program-list-body");
+                PlListBody.innerHTML = '';
+
+                const Days = {
+                    1: 'Monday',
+                    2: 'Tuesday',
+                    3: 'Wednesday',
+                    4: 'Thursday',
+                    5: 'Friday',
+                    6: 'Saturday',
+                    7: 'Sunday'
+                }
+
+
+                for (let i = 1; i < 8; i++) {
+                    const filterd = response.filter((el) => el.day == i);
+
+                    const PL = document.createElement('div');
+                    PL.setAttribute('class', 'program-list');
+
+                    const day = document.createElement('div');
+                    day.setAttribute('class', 'day');
+
+                    const h4 = document.createElement('h4');
+                    h4.innerText = Days[i];
+
+                    day.appendChild(h4);
+                    PL.appendChild(day);
+
+                    if (filterd.length > 0) {
+
+                        filterd.forEach((ele) => {
+                            const list = document.createElement('div');
+                            list.setAttribute('class', 'list');
+
+                            const name = document.createElement('div');
+                            name.setAttribute('class', 'name');
+                            name.innerText = ele.name;
+
+                            const slot = document.createElement('div');
+                            slot.setAttribute('class', 'slot');
+                            slot.innerText = ele.start + ' - ' + ele.end;
+
+                            const hr = document.createElement('hr');
+
+                            list.appendChild(name);
+                            list.appendChild(slot);
+
+                            PL.appendChild(list);
+                            PL.appendChild(hr);
+                        })
+
+
+                    } else {
+                        const list = document.createElement('div');
+                        list.setAttribute('class', 'list');
+                        list.innerText = 'Not Scheduled';
+
+                        PL.appendChild(list);
+                    }
+
+                    PlListBody.appendChild(PL);
+                }
+
+            }
+        };
+
+        xhr.send();
+
+    }
+
 
     function validateForm() {
         const name = document.getElementById('select-name').value;
@@ -919,13 +1074,68 @@
 
     }
 
-    function submitSponsorform() {
+    //Submit sponsor
+    document.getElementById("sponsor-form").addEventListener('submit', function(event) {
         let button = document.getElementById('submit');
         let button2 = document.getElementById('submiting');
         button.style.display = 'none';
         button2.style.display = 'block';
-        return true;
-    }
+        event.preventDefault();
+
+        const formData = new FormData;
+
+        const name = document.getElementById('select-name').value;
+        const company = document.getElementById('select-company').value;
+        const email = document.getElementById('select-email').value;
+        const contact = document.getElementById('select-contact').value;
+        const address = document.getElementById('select-address').value;
+        const description = document.getElementById('select-description').value;
+
+        formData.append('name', name);
+        formData.append('company', company);
+        formData.append('email', email);
+        formData.append('contact', contact);
+        formData.append('address', address);
+        formData.append('description', description);
+        formData.append('submit', true)
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/Controllers/SendSponsorInfo.php', true);
+
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+
+                var response = JSON.parse(xhr.responseText);
+                button.style.display = 'block';
+                button2.style.display = 'none';
+
+                if (response.status) {
+                    alertRise(true, response.message)
+                    scrollToTop();
+                } else {
+                    alertRise(false, response.message)
+                }
+
+
+
+                document.getElementById('select-name').value = '';
+                document.getElementById('select-company').value = '';
+                document.getElementById('select-email').value = '';
+                document.getElementById('select-contact').value = '';
+                document.getElementById('select-address').value = '';
+                document.getElementById('select-description').value = '';
+                validateForm();
+
+            } else {
+                console.error('Error submitting form ', xhr.statusText);
+            }
+        }
+
+        xhr.send(formData);
+
+
+    })
 
     function scrollToTop() {
         const element = document.getElementById('body');
@@ -936,16 +1146,27 @@
     }
 
     function goToSponsor(val) {
-        const element = document.querySelector('.sponsorForm');
+        const element = document.querySelector('.footer');
         if (!val) {
-            slideBar(false)
-        }
-        element.scrollIntoView({
-            behavior: 'smooth' // This adds smooth scrolling
+            slideBar(false);
+            const rect = element.getBoundingClientRect();
+
+        // Scroll the page down by the position of the element plus an additional 100px
+            window.scrollTo({
+            top: window.scrollY + rect.top, // Current scroll position + element's top position + 100px
+            behavior: 'smooth' // Smooth scrolling
         });
+        } else {
+            const rect = element.getBoundingClientRect();
+
+            // Scroll the page down by the position of the element plus an additional 100px
+            window.scrollTo({
+                top: window.scrollY + rect.top - 200, // Current scroll position + element's top position + 100px
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+        
     }
-
-
 
 
     function EventLoader() {
@@ -993,10 +1214,12 @@
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                 document.querySelector(".container-spinner").style.display = "none"
+                document.querySelector(".container-spinner").style.display = "none"
                 document.querySelector(".container").style.display = "block"
 
                 var response = JSON.parse(xhr.responseText).data;
+                document.querySelector(".image-list").innerHTML = '';
+
 
                 for (let i = 0; i < response.length; i++) {
                     const Sthour = response[i].start.split(':')[0];
@@ -1007,21 +1230,21 @@
                     const EnMin = response[i].end.split(':')[1];
                     const endTimeInSeconds = Enhour * 3600 + EnMin * 60;
 
-                    const imgSrc = response[i].image;
+                    let imgSrc = response[i].image;
+                    imgSrc = imgSrc.split("/");
+                    imgSrc = imgSrc[imgSrc.length - 1];
+
+                    imgSrc = "Public/Program/" + imgSrc;
+
                     const prgName = response[i].name;
                     const Start = response[i].start;
                     const End = response[i].end;
 
-                    console.log(startTimeInSeconds);
-                    console.log(endTimeInSeconds);
-                    console.log(curTimeInSeconds);
-                    
-                    
-                    
 
-                    if(curTimeInSeconds >= startTimeInSeconds && curTimeInSeconds < endTimeInSeconds){
-                        console.log('Acrtive');
-                        
+
+                    if (curTimeInSeconds >= startTimeInSeconds && curTimeInSeconds < endTimeInSeconds) {
+
+
                         const activeItem = document.createElement('div');
                         activeItem.classList.add("active-item");
 
@@ -1054,7 +1277,7 @@
                         activeItem.appendChild(activeItemText);
 
                         document.querySelector(".image-list").appendChild(activeItem);
-                    }else {
+                    } else {
                         const imageItem = document.createElement('div');
                         imageItem.classList.add("image-item");
 
@@ -1064,7 +1287,7 @@
                         const img = document.createElement('img');
                         img.classList.add("image-src");
                         // const imgSrc = response[i].image;
-                        img.setAttribute('src',imgSrc );
+                        img.setAttribute('src', imgSrc);
 
                         const imageItemText = document.createElement('div');
                         imageItemText.classList.add("image-item-text");
@@ -1093,87 +1316,119 @@
 
                     }
 
-                  
 
-
-
-        
-                    
-
-                    // if (i == 5) {
-                    //     const activeItem = document.createElement('div');
-                    //     activeItem.classList.add("active-item");
-
-                    //     const activeItemCover = document.createElement('div');
-                    //     activeItemCover.classList.add("active-item-cover");
-
-                    //     const activeImg = document.createElement('img');
-                    //     activeImg.classList.add("active-src");
-                    //     activeImg.setAttribute('src', 'Assets/Images/test.jpeg');
-
-                    //     const activeItemText = document.createElement('div');
-                    //     activeItemText.classList.add("active-item-text");
-
-                    //     const activeH4 = document.createElement('h4');
-                    //     activeH4.textContent = "ON Air";
-
-                    //     const activeSlot = document.createElement('div');
-                    //     activeSlot.classList.add("slot");
-
-                    //     const activeSpan = document.createElement('span');
-                    //     activeSpan.textContent = "Nilachoru";
-
-
-                    //     activeSlot.appendChild(activeSpan);
-                    //     activeItemText.appendChild(activeH4);
-                    //     activeItemText.appendChild(activeSlot);
-                    //     activeItem.appendChild(activeItemCover);
-                    //     activeItem.appendChild(activeImg);
-                    //     activeItem.appendChild(activeItemText);
-
-                    //     document.querySelector(".image-list").appendChild(activeItem);
-
-                    // } else {
-                    //     const imageItem = document.createElement('div');
-                    //     imageItem.classList.add("image-item");
-
-                    //     const imageItemCover = document.createElement('div');
-                    //     imageItemCover.classList.add("image-item-cover");
-
-                    //     const img = document.createElement('img');
-                    //     img.classList.add("image-src");
-                    //     img.setAttribute('src', 'Assets/Images/test.jpeg');
-
-                    //     const imageItemText = document.createElement('div');
-                    //     imageItemText.classList.add("image-item-text");
-
-                    //     const h4 = document.createElement('h4');
-                    //     h4.textContent = "Rakankal 16";
-
-                    //     const slot = document.createElement('div');
-                    //     slot.classList.add("slot");
-
-                    //     const i = document.createElement('i');
-                    //     i.classList.add('fa-brands', 'fa-creative-commons-sampling', 'icon');
-
-                    //     const span = document.createElement('span');
-                    //     span.textContent = "06:00 PM - 08:00 PM";
-
-                    //     slot.appendChild(i);
-                    //     slot.appendChild(span);
-                    //     imageItemText.appendChild(h4);
-                    //     imageItemText.appendChild(slot);
-                    //     imageItem.appendChild(imageItemCover);
-                    //     imageItem.appendChild(img);
-                    //     imageItem.appendChild(imageItemText);
-
-                    //     document.querySelector(".image-list").appendChild(imageItem);
-
-                    // }
                 }
+
 
                 initSlider();
                 scrollToCenter();
+
+
+
+
+            }
+        };
+
+        xhr.send();
+
+
+    }
+
+    let audioResponse;
+
+    function FeatureLoader() {
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', '/Controllers/GetFeaturedNews.php', true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+
+                audioResponse = JSON.parse(xhr.responseText).data;
+                // console.log(audioResponse);
+
+                const featureContainer = document.querySelector(".feature-container");
+
+                if (audioResponse.length > 0) {
+                    const allFeatures = document.querySelector(".all-features");
+                    allFeatures.innerHTML = '';
+
+
+                    for (let i = 0; i < audioResponse.length; i++) {
+
+
+                        let imgSrc = audioResponse[i].image;
+                        imgSrc = imgSrc.split("/");
+                        imgSrc = imgSrc[imgSrc.length - 1];
+                        imgSrc = "Public/News/" + imgSrc;
+
+                        let audioSrc = audioResponse[i].audio;
+                        audioSrc = audioSrc.split("/");
+                        audioSrc = audioSrc[audioSrc.length - 1];
+                        audioSrc = "Public/Audio/" + audioSrc;
+
+                        const prgName = audioResponse[i].description;
+                        const newsDate = audioResponse[i].date;
+
+
+                        if (i == 0) {
+                            const newsPlayer = document.getElementById("newsPlayer");
+                            newsPlayer.setAttribute('src', audioSrc);
+                            // console.log(newsPlayer.duration);
+
+                            const newsTitle = document.querySelectorAll(".news-title");
+                            for (let k = 0; k < newsTitle.length; k++) {
+                                newsTitle[k].querySelector("h4").innerText = prgName;
+                                newsTitle[k].querySelector("h6").innerText = newsDate;
+                            }
+
+                            document.querySelector(".curr-image").setAttribute('src', imgSrc);
+
+                            const hr = document.createElement("hr");
+                            hr.setAttribute("class", "current_player");
+
+                            const h6 = document.createElement("h6");
+                            h6.innerText = newsDate;
+
+                            const img = document.createElement("img");
+                            img.setAttribute('class', 'feature-image');
+                            img.setAttribute('src', imgSrc);
+
+                            const feature = document.createElement('div');
+                            feature.setAttribute('id', i + 1);
+                            feature.setAttribute('class', 'feature');
+
+                            feature.appendChild(img);
+                            feature.appendChild(h6);
+                            feature.appendChild(hr);
+
+                            allFeatures.appendChild(feature);
+                        } else {
+                            const h6 = document.createElement("h6");
+                            h6.innerText = newsDate;
+
+                            const img = document.createElement("img");
+                            img.setAttribute('class', 'feature-image');
+                            img.setAttribute('src', imgSrc);
+
+                            const feature = document.createElement('div');
+                            feature.setAttribute('id', i + 1);
+                            feature.setAttribute('class', 'feature');
+
+                            feature.appendChild(img);
+                            feature.appendChild(h6);
+
+                            allFeatures.appendChild(feature);
+                        }
+
+
+                    }
+
+                } else {
+                    featureContainer.innerHTML = "<div style='width: 100%; text-align: center'>No Recordings found</div>"
+                }
+
 
 
 
@@ -1294,29 +1549,11 @@
 
     function playRadio(val) {
         const radio = document.getElementById("audioPlayer");
+        const audio = document.getElementById("newsPlayer");
         const play = document.querySelectorAll(".play");
         const pause = document.querySelectorAll(".pause");
 
-        if (radio.paused) {
-            // radio.currentTime = 0;
-            // play.classList.toggle("show");
-
-
-            play.forEach((e) => {
-                e.style.display = "none";
-            })
-            pause.forEach((e) => {
-                e.style.display = "block";
-            })
-
-            // setTimeout(() => {
-
-            //     pause.classList.toggle("show")
-            // }, 1000)
-            radio.play();
-            activeSpike();
-        } else {
-
+        if (val) {
             play.forEach((e) => {
                 e.style.display = "block";
             })
@@ -1324,10 +1561,52 @@
                 e.style.display = "none";
             })
 
-
-            // radio.volume = 0;
             radio.pause();
             deactiveSpike();
+        } else {
+            if (radio.paused) {
+
+                if(!audio.paused){
+                    controlAudio();
+
+                    setTimeout(() => {
+                        radio.play();
+                    }, 300)
+                    
+                }else {
+                    radio.play();
+                }
+                // radio.currentTime = 0;
+                // play.classList.toggle("show");
+
+
+                play.forEach((e) => {
+                    e.style.display = "none";
+                })
+                pause.forEach((e) => {
+                    e.style.display = "block";
+                })
+
+                // setTimeout(() => {
+
+                //     pause.classList.toggle("show")
+                // }, 1000)
+                
+                activeSpike();
+            } else {
+
+                play.forEach((e) => {
+                    e.style.display = "block";
+                })
+                pause.forEach((e) => {
+                    e.style.display = "none";
+                })
+
+
+                // radio.volume = 0;
+                radio.pause();
+                deactiveSpike();
+            }
         }
 
     }
@@ -1339,9 +1618,30 @@
         if (event.target.classList.contains("feature-image")) {
             const parenElement = event.target.parentElement;
             if (current != parenElement.id) {
+                const selectedRecord = audioResponse[parenElement.id - 1];
+
+                let imgSrc = selectedRecord.image;
+                imgSrc = imgSrc.split("/");
+                imgSrc = imgSrc[imgSrc.length - 1];
+                imgSrc = "Public/News/" + imgSrc;
+
+                let audioSrc = selectedRecord.audio;
+                audioSrc = audioSrc.split("/");
+                audioSrc = audioSrc[audioSrc.length - 1];
+                audioSrc = "Public/Audio/" + audioSrc;
 
                 /* Pick the audio and play in audio player */
-                playAudio("/Assets/Audio/My Universe.mp3");
+
+                const newsTitle = document.querySelectorAll(".news-title");
+                for (let k = 0; k < newsTitle.length; k++) {
+                    newsTitle[k].querySelector("h4").innerText = selectedRecord.description;
+                    newsTitle[k].querySelector("h6").innerText = selectedRecord.date;
+                }
+
+                document.querySelector(".curr-image").setAttribute('src', imgSrc);
+
+
+                playAudio(audioSrc);
 
                 document.querySelector(".current_player").remove();
                 document.querySelector(".active-circle").classList.remove("active-circle");
@@ -1349,6 +1649,9 @@
                 hr.classList.add("current_player");
                 parenElement.appendChild(hr)
                 current = Number(parenElement.id);
+                current = Math.ceil(current/3)
+                // console.log(current);
+                
 
                 const circles = document.querySelectorAll(".circle");
                 circles[current - 1].classList.add("active-circle");
@@ -1360,11 +1663,12 @@
     function playAudio(src) {
         const audio = document.getElementById("newsPlayer");
         const radio = document.getElementById("audioPlayer");
-        const play = document.querySelector(".audioPlay");
-        const pause = document.querySelector(".audioPause");
+        const play = document.querySelectorAll(".audioPlay");
+        const pause = document.querySelectorAll(".audioPause");
         audio.setAttribute('src', src);
         // console.log(audio);
 
+        playRadio(true);
 
         if (audio) {
             if (!radio.paused) {
@@ -1378,28 +1682,42 @@
             console.log("audio not found");
 
         }
-        play.classList.remove("show");
-        play.classList.add("hide");
-        pause.classList.add("show");
-        pause.classList.remove("hide");
+
+        play.forEach((el) => {
+            el.classList.remove("show");
+            el.classList.add("hide");
+        })
+
+        pause.forEach((el) => {
+            el.classList.add("show");
+            el.classList.remove("hide");
+        })
+
+
     }
 
     function controlAudio() {
         const audio = document.getElementById("newsPlayer");
-        const play = document.querySelector(".audioPlay");
-        const pause = document.querySelector(".audioPause");
+        const play = document.querySelectorAll(".audioPlay");
+        const pause = document.querySelectorAll(".audioPause");
 
         if (audio.paused) {
             audio.play();
+            playRadio(true);
 
         } else {
             audio.pause();
         }
 
-        play.classList.toggle("show");
-        play.classList.toggle("hide");
-        pause.classList.toggle("show");
-        pause.classList.toggle("hide");
+        play.forEach((el) => {
+            el.classList.toggle("show");
+            el.classList.toggle("hide");
+        })
+
+        pause.forEach((el) => {
+            el.classList.toggle("show");
+            el.classList.toggle("hide");
+        })
 
 
 
@@ -1656,9 +1974,15 @@
         xhr.send(formData);
     });
 
-    function goToDash() {
+    function goToDash(role) {
         // window.location.href = "/dashboard"
-        window.open("/dashboard", "_blank");
+
+        if (role === 'RJ') {
+            window.open("/rjboard", "_blank");
+        } else {
+            window.open("/dashboard", "_blank");
+        }
+
     }
 
     function alertRise(status, message) {

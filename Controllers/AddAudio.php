@@ -1,5 +1,9 @@
 <?php
 if (isset($_POST['submit'])) {
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
     include('DBConnectivity.php');
 
 
@@ -70,6 +74,10 @@ if (isset($_POST['submit'])) {
         ]);
     }
 } elseif (isset($_POST['radio-submit'])) {
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
     include('DBConnectivity.php');
     $stream = $_POST['stream'];
 
@@ -91,6 +99,10 @@ if (isset($_POST['submit'])) {
         ]);
     }
 } elseif (isset($_POST['edit-submit'])) {
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        exit();
+    }
     include('DBConnectivity.php');
 
 

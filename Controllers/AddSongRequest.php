@@ -38,6 +38,10 @@
             ]);
         }
     } elseif (isset($_POST['req-viewed'])) {
+        if (!isset($_COOKIE['user'])) {
+            header('Location: /');
+            exit();
+        }
         include('DBConnectivity.php');
         $ID = $_POST['ID'];
 

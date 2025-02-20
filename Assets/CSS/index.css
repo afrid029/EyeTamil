@@ -10,6 +10,71 @@ html {
   scroll-behavior: smooth; /* Smooth scroll for modern browsers */
 }
 
+#seekBar {
+  width: 90%;
+  height: 7px;
+  border-radius: 5px;
+  background-color: #ddd;
+  cursor: pointer;
+  margin-top: 10px !important;
+  margin: auto;
+  margin-bottom: 10px !important;
+  z-index: 16;
+    position: relative;
+
+    cursor: grab;
+}
+
+#seekBar.grabbing {
+  cursor: grabbing;
+}
+
+/* Progress bar inside the seek bar */
+#seekBarProgress {
+  width: 0%;
+  height: 100%;
+  background-color: #af8c4c;
+  border-radius: 5px;
+}
+
+#seekBar2 {
+  width: 90%;
+  height: 7px;
+  border-radius: 5px;
+  background-color: #ddd;
+  cursor: pointer;
+  margin-top: 10px !important;
+  margin: auto;
+  margin-bottom: 10px !important;
+  z-index: 16;
+    position: relative;
+    cursor: grab;
+  }
+  
+  #seekBar2.grabbing {
+    cursor: grabbing;
+  }
+
+/* Progress bar inside the seek bar */
+#seekBarProgress2 {
+  width: 0%;
+  height: 100%;
+  background-color: #af984c;
+  border-radius: 5px;
+}
+
+.duration {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 10px !important;
+}
+
+.duration div {
+  font-size: 0.6rem;
+}
+
+
 body {
   /* display: flex;
     align-items: center;
@@ -87,6 +152,7 @@ body {
   border-radius: 16px;
   background-color: rgb(255, 255, 255);
   z-index: 16;
+  padding-bottom: 15px;
 }
 
 .signin-form .close{
@@ -608,6 +674,7 @@ body {
 .playIcon {
   position: absolute;
   top: 50%;
+  display : none;
   transform: translateY(-50%);
   color: #fff;
   font-size: 2rem;
@@ -1065,6 +1132,14 @@ p{
   padding-bottom: 10vh;
   z-index: 10;
   position: relative;
+}
+
+.time {
+  position: absolute;
+  top: 10px;
+  right:10px;
+  z-index: 15;
+  color: white;
 }
 
 .fm-intro {
@@ -1583,11 +1658,12 @@ p{
 }
 
 .feature {
-  width: 92%;
-  margin-right: 5%;
+  width: 60%;
+  margin-right: 10%;
   border-radius: 10px;
   margin-bottom: 3vh;
   cursor: pointer;
+
 }
 
 .feature-image {
@@ -1878,6 +1954,10 @@ p{
     gap: 18px;
   }
 
+  .time {
+    font-size: 1.5rem;
+  }
+
   .fm-intro h1 {
     font-size: 2.5rem;
   }
@@ -1937,7 +2017,7 @@ p{
   }
 
   .all-features {
-    max-height: 600px;
+    max-height: 800px;
   }
 
   .feature h6 {
@@ -2085,6 +2165,10 @@ p{
     gap: 13px;
   }
 
+  .time {
+    font-size: 1.3rem;
+  }
+
   
   .fm-intro h1 {
     font-size: 2.1rem;
@@ -2145,7 +2229,7 @@ p{
   }
 
   .all-features {
-    max-height: 400px;
+    max-height: 600px;
   }
 
   .feature h6 {
@@ -2295,7 +2379,9 @@ p{
   .spikes {
     gap: 11px;
   }
-
+  .time {
+    font-size: 1.1rem;
+  }
     
   .fm-intro h1 {
     font-size: 1.8rem;
@@ -2357,7 +2443,7 @@ p{
   }
 
   .all-features {
-    max-height: 350px;
+    max-height: 500px;
   }
 
   .feature h6 {
@@ -2497,6 +2583,10 @@ p{
     gap: 9px;
   }
 
+  .time {
+    font-size: 0.9rem;
+  }
+
   .slider-wrapper .image-list .image-item {
     width: 250px;
     height: 250px;
@@ -2543,7 +2633,7 @@ p{
   }
 
   .all-features {
-    max-height: 300px;
+    max-height: 450px;
   }
 
   .feature h6 {
@@ -2686,6 +2776,10 @@ p{
     display: block;
   }
 
+  .time {
+    font-size: 0.8rem;
+  }
+
     
   .fm-intro h1 {
     font-size: 1.4rem;
@@ -2745,6 +2839,11 @@ p{
 
   .all-features {
     width: 100%;
+  }
+
+  .feature {
+    justify-self: center;
+    display: grid;
   }
 
 
@@ -2931,15 +3030,22 @@ p{
   }
 
   .mobile-nav-logo img {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
   }
 
   .mobile-nav-option span {
     height: 2px;
   }
 
-    
+  .time {
+    font-size: 0.7rem;
+  }
+
+
+  .fm-intro {
+    margin-top: 2vh;
+  } 
   .fm-intro h1 {
     font-size: 1.15rem;
     text-align: left;
@@ -3018,6 +3124,7 @@ p{
     gap: 10px;
     overflow: auto;
     justify-items: center;
+    max-height: 300px;
 
   }
 
@@ -3162,6 +3269,9 @@ p{
     height: 320px;
   }
 
+  .time {
+    font-size: 0.6rem;
+  }
   .active-item {
     width: 340px !important;
     height: 340px !important;
@@ -3224,5 +3334,5 @@ p{
   margin: 15px;
   width: inherit;
   font-size: 12px;
-  font-family: 'inter', serif;
+  font-family: 'Roboto', serif;
 }
