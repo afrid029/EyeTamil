@@ -209,6 +209,55 @@
         </div>
     </div>
 
+       <!-- Edit-User Model -->
+
+       <div id="edit-user" class="add-model-overlay">
+        <div class="add-model">
+            <div class="title">
+                <h3>Edit User</h3>
+                <div onclick="handleModel('edit-user',false)" class="close">
+                    <div>x</div>
+                </div>
+            </div>
+
+            <form id="edit-user-form" class="form" method="post" oninput="validateEditUser()">
+                <div class="FormRow">
+                    <input type="text" name="userid" id="edit-userid" placeholder="Username" readonly required>
+                </div>
+                <div class="FormRow">
+                    <input type="password" name="password" id="edit-password" placeholder="Password" required>
+                </div>
+
+                <div class="FormRow active-selection">
+                <label for="form-active">Active</label>
+                <input type="radio" name="status" id="form-active">
+                </div>
+                <div class="FormRow active-selection">
+                <label for="form-deactive">Deactive</label>
+                <input type="radio" name="status" id="form-deactive">
+                </div>
+
+                <div class="button">
+                    <button
+                        type="submit"
+                        id="edit-user-submit"
+                        name="edit-submit"
+                        disabled="true"
+                        class="submit">
+                        Update
+                    </button>
+
+                    <button
+                        style="display: none;"
+                        id="edit-user-submiting"
+                        disabled="true"
+                        class="submit"> Updating...
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Program Model -->
 
     <div id="program" class="add-model-overlay">
@@ -702,6 +751,7 @@
 
             if (page == 1) {
                 xhr.open('GET', '/Controllers/GetPrograms.php', true);
+                // xhr.open('GET', '/Controllers/GetPrograms.php?role=' + ' < php echo $_SESSION['role']; ?>', true);
             } else if (page == 2) {
                 xhr.open('GET', '/Controllers/GetVideos.php', true);
                 // xhr.open('GET', '/Controllers/GetVideos.php?role=' + ' < php echo $_SESSION['role']; ?>', true);
@@ -959,7 +1009,7 @@
                 } else if (ID == 'edit-stream') {
                     const Skey = document.getElementById('streamKey').innerText;
                     document.getElementById('stream').value = Skey;
-                }else if (ID == 'edit-audio') {
+                } else if (ID == 'edit-audio') {
                     document.getElementById('audio-id').value = contentId;
                     const curElement = document.getElementById(contentId);
                     const name = curElement.querySelector("h3").innerText;
@@ -969,6 +1019,36 @@
                     document.getElementById("edit-date").value = date;
 
                     validateEditAudio();
+                } else if (ID == 'edit-user') {
+                    document.getElementById('edit-userid').value = '';
+                            document.getElementById('edit-password').value = '';
+                            document.getElementById('form-active').checked = false;
+                            document.getElementById('form-deactive').checked = false
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', '/Controllers/GetSingleUser.php?ID='+contentId, true);
+                    xhr.onload = function() {
+                        if (xhr.status == 200) {
+                            const response = JSON.parse(xhr.responseText)
+                            console.log(response.data);
+
+                            document.getElementById('edit-userid').value = response.data.ID;
+                            document.getElementById('edit-password').value = response.data.password;
+                            if(response.data.active == true) {
+                                document.getElementById('form-active').checked = true;
+                            }else {
+                                document.getElementById('form-deactive').checked = true;
+                            }
+                            
+
+
+
+                        } else {
+                            console.error('Error submitting form ', xhr.statusText);
+                        }
+                    };
+
+                    xhr.send();
+
                 }
             }
             if (value) {
@@ -1160,6 +1240,73 @@
                         document.getElementById('password').value = '';
                     } else {
                         handleModel('user', false)
+                        alertRise(false, data.message)
+                    }
+
+                    validateUser();
+                } else {
+                    console.error('Error submitting form ', xhr.statusText);
+                }
+            };
+
+            xhr.send(formData);
+
+            // 
+        })
+
+        function validateEditUser() {
+            const id = document.getElementById("edit-userid").value.length;
+            const password = document.getElementById("edit-password").value.length;
+            const btn = document.getElementById("edit-user-submit");
+
+            if (id > 0 && password > 0) {
+                btn.disabled = false;
+            } else {
+                btn.disabled = true;
+            }
+        }
+        // Edit User
+        document.getElementById('edit-user-form').addEventListener('submit', function(event) {
+            let button = document.getElementById('edit-user-submit');
+            let button2 = document.getElementById('edit-user-submiting');
+            button.style.display = 'none';
+            button2.style.display = 'block';
+
+            event.preventDefault();
+
+            const formData = new FormData;
+
+
+            const userid = document.getElementById('edit-userid').value;
+            const password = document.getElementById('edit-password').value;
+
+            const status = document.getElementById('form-active').checked ? true : false;
+
+            
+
+            formData.append('userid', userid);
+            formData.append('password', password);
+            formData.append('active', status);
+            formData.append('edit-submit', true);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Controllers/AddUser.php', true);
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    const data = JSON.parse(xhr.responseText)
+
+                    button.style.display = 'block';
+                    button2.style.display = 'none';
+
+
+                    if (data.status) {
+                        handleModel('edit-user', false)
+                        alertRise(true, data.message)
+                        document.getElementById('edit-userid').value = '';
+                        document.getElementById('edit-password').value = '';
+                        loadPage(1);
+                    } else {
+                        handleModel('edit-user', false)
                         alertRise(false, data.message)
                     }
 

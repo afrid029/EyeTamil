@@ -132,7 +132,21 @@
   color: rgba(83, 82, 82, 0.425);
 }
  
+.active-selection {
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px;
+ 
+}
 
+.active-selection input {
+  height: 15px !important;
+  width: fit-content !important;
+}
+.active-selection label {
+ margin-bottom: 0px !important;
+}
 
   .button {
     display: flex;

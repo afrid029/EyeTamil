@@ -238,6 +238,25 @@ a:hover {
     width: 100%;
 }
 
+.user-status {
+    display: flex;
+    align-items:center;
+    gap: 10px;
+}
+.active-status, .deactive-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.active-status {
+    background-color: green;
+}
+
+.deactive-status {
+    background-color: red;
+}
+
 .modify {
     display: flex;
    opacity: 0.8;

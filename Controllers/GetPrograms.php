@@ -1,5 +1,5 @@
 <?php
-
+SESSION_START();
 include('DBConnectivity.php');
 
 $query = "SELECT 
@@ -14,11 +14,54 @@ ORDER BY name";
 $html = '';
 $result = mysqli_query($db, $query);
 
+$query = "SELECT * FROM users order by role";
+$result1 = mysqli_query($db, $query);
+
 $html .= " <div class='buttons'>
             <div onclick=handleModel('announcement',true)><i class='fa-solid fa-plus'></i> Announcements </div>
             <div onclick=handleModel('user',true)><i class='fa-solid fa-plus'></i> Users</div>
             <div onclick=handleModel('program',true)><i class='fa-solid fa-plus'></i> Programs</div>
         </div>";
+
+
+     
+        // $_GET['role'] === 'superadmin'
+    if($_SESSION['role'] === 'superadmin'){
+        $html .= "<h3 style='margin-left: 5%;'>Users</h3>";
+
+        while($row = mysqli_fetch_assoc($result1)){
+            $class = $row['active'] ? 'active-status' : 'deactive-status';
+            $staus = $row['active'] ? 'Active' : 'Disabled';
+
+            $html .= "<div class='program'>
+            <h3>". $row['ID'] ."</h3>
+            <div class='program-bar'>
+                <div class='next-slot user-status'>
+                    <div class = '". $class ."'></div>
+                    <div>Status : ". $staus ."</div>
+                   
+                </div>
+
+                 <div class='next-slot'>
+                    
+                   ". $row['role'] ."
+                </div>
+                <div class='modify'>
+                    <div onclick=handleModel('edit-user',true,'". $row['ID'] ."') class='edit'>
+                        Edit
+                    </div>
+                </div>
+            </div>
+        </div>";
+        }
+        $html .= "<h3 style='margin-left: 5%;'>Programs</h3>";
+    }
+
+
+
+
+
+
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
 

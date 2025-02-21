@@ -12,6 +12,8 @@ $query = "SELECT *
 FROM recordedaudio
 ORDER BY date desc";
 $result = mysqli_query($db, $query);
+
+
 $html = '';
 
 $html .= "<div class='buttons'>
@@ -36,6 +38,7 @@ $html .= "<div class='buttons'>
             </div>
         </div>
         </div>";
+        
     }
 
 
