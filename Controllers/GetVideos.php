@@ -1,5 +1,5 @@
 <?php 
-
+SESSION_START();
 include('DBConnectivity.php');
 
 $query = "SELECT * from stream order by ID desc LIMIT 1";
@@ -16,22 +16,28 @@ $html = '';
 
 $html .= "<div class='buttons'>
             <div onclick=handleModel('audio',true)><i class='fa-solid fa-plus'></i> News</div>
-        </div>
-        
-        <div class='program'>
-            <h3>Radio Stream key</h3>
-            <div class='program-bar'>
-                <div style = 'text-transform : none' id='streamKey' class='next-slot'>
-                    " . $rowStr['stream'] . "
-                </div>
-                <div class='modify'>
-                        <div onclick=handleModel('edit-stream',true) class='edit'>
-                            Edit
-                        </div>
-        
-                </div>
-            </div>
         </div>";
+
+   
+
+        // $_GET['role'] === 'superadmin'
+    if($_SESSION['role'] === 'superadmin'){
+        $html .= "<div class='program'>
+        <h3>Radio Stream key</h3>
+        <div class='program-bar'>
+            <div style = 'text-transform : none' id='streamKey' class='next-slot'>
+                " . $rowStr['stream'] . "
+            </div>
+            <div class='modify'>
+                    <div onclick=handleModel('edit-stream',true) class='edit'>
+                        Edit
+                    </div>
+    
+            </div>
+        </div>
+        </div>";
+    }
+
 
 if(mysqli_num_rows($result) > 0){
 

@@ -67,7 +67,7 @@
         $passedArray = unserialize($decryptedData);
         // $result = mysqli_query($db, $query);
 
-        if ($passedArray['role'] === 'admin') {
+        if ($passedArray['role'] === 'admin' || $passedArray['role'] === 'superadmin') {
             $_SESSION['ID'] = $passedArray['ID'];
             $_SESSION['role'] = $passedArray['role'];
         } else {
@@ -689,6 +689,8 @@
 
     </div>
 
+    
+
     <!-- <img src="/Assets/Images/logo.png" alt=""/> -->
 
     <script>
@@ -702,6 +704,7 @@
                 xhr.open('GET', '/Controllers/GetPrograms.php', true);
             } else if (page == 2) {
                 xhr.open('GET', '/Controllers/GetVideos.php', true);
+                // xhr.open('GET', '/Controllers/GetVideos.php?role=' + ' < php echo $_SESSION['role']; ?>', true);
             } else if (page == 3) {
                 xhr.open('GET', '/Controllers/GetRequests.php?role=admin', true);
             }
