@@ -5,7 +5,7 @@ $query = "SELECT e.name, es.day, es.start, es.end
 FROM event e
 JOIN `event-schedule` es on e.ID = es.event_ID
 WHERE es.start IS NOT NULL
-ORDER BY es.day";
+ORDER BY es.day, es.start";
 
 $result = mysqli_query($db, $query);
 

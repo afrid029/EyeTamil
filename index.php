@@ -457,6 +457,17 @@
     </footer> -->
 
 
+    <div class="onair">
+        <div class = "montreal">
+        <i class="fa-solid fa-phone-volume"></i>
+        <h5>Montreal 514-584-1029 </h5>
+        </div>
+
+        <div class = "toronto">
+        <i class="fa-solid fa-phone-volume"></i>
+        <h5>Toronto 416-584-1029 </h5>
+        </div>
+    </div>
 
     <div class="container-body">
         <div class="container-body-cover"></div>
@@ -1151,11 +1162,11 @@
             slideBar(false);
             const rect = element.getBoundingClientRect();
 
-        // Scroll the page down by the position of the element plus an additional 100px
+            // Scroll the page down by the position of the element plus an additional 100px
             window.scrollTo({
-            top: window.scrollY + rect.top, // Current scroll position + element's top position + 100px
-            behavior: 'smooth' // Smooth scrolling
-        });
+                top: window.scrollY + rect.top, // Current scroll position + element's top position + 100px
+                behavior: 'smooth' // Smooth scrolling
+            });
         } else {
             const rect = element.getBoundingClientRect();
 
@@ -1165,7 +1176,7 @@
                 behavior: 'smooth' // Smooth scrolling
             });
         }
-        
+
     }
 
 
@@ -1566,14 +1577,14 @@
         } else {
             if (radio.paused) {
 
-                if(!audio.paused){
+                if (!audio.paused) {
                     controlAudio();
 
                     setTimeout(() => {
                         radio.play();
                     }, 300)
-                    
-                }else {
+
+                } else {
                     radio.play();
                 }
                 // radio.currentTime = 0;
@@ -1591,7 +1602,7 @@
 
                 //     pause.classList.toggle("show")
                 // }, 1000)
-                
+
                 activeSpike();
             } else {
 
@@ -1649,9 +1660,9 @@
                 hr.classList.add("current_player");
                 parenElement.appendChild(hr)
                 current = Number(parenElement.id);
-                current = Math.ceil(current/3)
+                current = Math.ceil(current / 3)
                 // console.log(current);
-                
+
 
                 const circles = document.querySelectorAll(".circle");
                 circles[current - 1].classList.add("active-circle");
