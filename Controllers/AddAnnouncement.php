@@ -4,7 +4,9 @@
 
         if (!isset($_COOKIE['user'])) {
             header('Location: /');
-            exit();
+
+             echo "<script>window.location.pathname = '/'</script>";
+        exit();
         }
       
         include('DBConnectivity.php');
@@ -40,6 +42,7 @@
     }elseif (isset($_POST['announcement-viewed'])) {
         if (!isset($_COOKIE['user'])) {
             header('Location: /');
+            echo "<script>window.location.pathname = '/'</script>";
             exit();
         }
         include('DBConnectivity.php');
@@ -67,6 +70,7 @@
         }
     } else {
         header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
         exit();
     }
 

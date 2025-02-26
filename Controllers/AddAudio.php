@@ -2,6 +2,7 @@
 if (isset($_POST['submit'])) {
     if (!isset($_COOKIE['user'])) {
         header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
         exit();
     }
     include('DBConnectivity.php');
@@ -76,6 +77,7 @@ if (isset($_POST['submit'])) {
 } elseif (isset($_POST['radio-submit'])) {
     if (!isset($_COOKIE['user'])) {
         header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
         exit();
     }
     include('DBConnectivity.php');
@@ -101,6 +103,7 @@ if (isset($_POST['submit'])) {
 } elseif (isset($_POST['edit-submit'])) {
     if (!isset($_COOKIE['user'])) {
         header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
         exit();
     }
     include('DBConnectivity.php');
@@ -224,6 +227,12 @@ if (isset($_POST['submit'])) {
         ]);
     }
 } elseif (isset($_POST['del-submit'])) {
+
+    if (!isset($_COOKIE['user'])) {
+        header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
+        exit();
+    }
     include('DBConnectivity.php');
     $ID = $_POST['ID'];
 
@@ -275,5 +284,7 @@ if (isset($_POST['submit'])) {
     }
 } else {
     header('Location: /');
+    echo "<script>window.location.pathname = '/'</script>";
     exit();
+ 
 }

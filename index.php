@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="Assets/CSS/index.css" />
     <link rel="stylesheet" href="Assets/CSS/Form.css" />
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+
 </head>
 
 <body id="body">
@@ -328,7 +330,8 @@
     </svg>
 
 
-    <audio id="audioPlayer" src=""></audio>
+    <!-- <audio id="audioPlayer" src=""></audio> -->
+    <audio id="newsPlayer" src=""></audio>
     <!-- http://streams.radio.co/s937ac5492/listen -->
     <div class="nav">
 
@@ -458,14 +461,14 @@
 
 
     <div class="onair">
-        <div class = "montreal">
-        <i class="fa-solid fa-phone-volume"></i>
-        <h5>Montreal 514-584-1029 </h5>
+        <div class="montreal">
+            <i class="fa-solid fa-phone-volume"></i>
+            <h5>Montreal 514-584-1029 </h5>
         </div>
 
-        <div class = "toronto">
-        <i class="fa-solid fa-phone-volume"></i>
-        <h5>Toronto 416-584-1029 </h5>
+        <div class="toronto">
+            <i class="fa-solid fa-phone-volume"></i>
+            <h5>Toronto 416-584-1029 </h5>
         </div>
     </div>
 
@@ -532,7 +535,7 @@
             </div>
         </div>
         <div class="feature-container">
-            <audio id="newsPlayer" src=""></audio>
+           
             <div class="mobile-playing-feature">
                 <div class="mobile-playing-feature-cover"></div>
                 <div class="player-bottom" style="position: relative;">
@@ -724,19 +727,19 @@
 <script>
     const radioId = document.getElementById('audioPlayer');
 
-    radioId.addEventListener('canplaythrough', function() {
-        console.log('Stream Loaded')
-        icons = document.querySelectorAll('.playIcon');
-        icons.forEach((el) => {
-            el.style.display = 'block';
-        });
-    });
+    // radioId.addEventListener('canplaythrough', function() {
+    //     console.log('Stream Loaded')
+    //     icons = document.querySelectorAll('.playIcon');
+    //     icons.forEach((el) => {
+    //         el.style.display = 'block';
+    //     });
+    // });
 
     // Error event listener to handle any issues with loading the audio
-    radioId.addEventListener('error', function() {
-        console.log("Failed to load stream. Please check the stream key.");
-        // playButton.disabled = true; // Disable the play button in case of error
-    });
+    // radioId.addEventListener('error', function() {
+    //     console.log("Failed to load stream. Please check the stream key.");
+    //     // playButton.disabled = true; // Disable the play button in case of error
+    // });
 
     const audioPlayer = document.getElementById('newsPlayer');
     const seekBar = document.getElementById('seekBar');
@@ -848,7 +851,7 @@
 
     // const audioPlayer2 = document.getElementById('newsPlayer');
 
-
+    
     // Update the seek bar as the audio plays
     // audioPlayer2.addEventListener('timeupdate', function () {
 
@@ -958,6 +961,11 @@
         }
     };
 
+    let onlineRadio;
+    let isPlaying = false;
+    let streamKey;
+    const icons = document.querySelectorAll('.playIcon');
+
     function loadStream() {
         const xhr = new XMLHttpRequest();
 
@@ -972,7 +980,39 @@
 
 
                 const radioContainer = document.getElementById('audioPlayer')
-                radioContainer.setAttribute('src', response.data['stream'])
+                
+                streamKey = response.data['stream'];
+                console.log('Stream Loadeding');
+                icons.forEach((el) => {
+                            el.style.display = 'block';
+                        });
+                // radioContainer.setAttribute('src', response.data['stream'])
+
+
+                // onlineRadio = new Howl({
+                //     src: [streamKey],
+                //     html5: true,
+                //     format: ['mp3', 'aac'],
+                //     onload: () => {
+                //         console.log('Stream Loaded');
+                //         isPlaying = false;
+                       
+
+                //     },
+                //     onend: () => {
+                //         console.log('Stream ended');
+                //     },
+                //     onloaderror: (id, error) => {
+                //         console.error('Load error', error);
+                //     },
+                //     onplayerror: (id, error) => {
+                //         console.error('Play error', error);
+                //     }
+                // });
+
+                // onlineRadio.play();
+
+
 
 
             }
@@ -1572,20 +1612,79 @@
                 e.style.display = "none";
             })
 
-            radio.pause();
+            // radio.pause();
+            onlineRadio.stop();
+            isPlaying = false;
             deactiveSpike();
         } else {
-            if (radio.paused) {
+            console.log('Is Playing...', isPlaying);
+            
+            if (!isPlaying) {
 
+                console.log('audio Paused..', audio.paused);
+                
                 if (!audio.paused) {
                     controlAudio();
 
                     setTimeout(() => {
-                        radio.play();
+                        // radio.play();
+
+                        // if (onlineRadio) {
+                        //     onlineRadio.unload();
+                        // }
+
+                        onlineRadio = new Howl({
+                            src: [streamKey],
+                            html5: true,
+                            format: ['mp3', 'aac'],
+                            onload: () => {
+                                console.log('Stream Loaded');
+                    
+
+                            },
+                            onend: () => {
+                                console.log('Stream ended');
+                            },
+                            onloaderror: (id, error) => {
+                                console.error('Load error', error);
+                            },
+                            onplayerror: (id, error) => {
+                                console.error('Play error', error);
+                            }
+                        });
+
+                        isPlaying = true;
+                        onlineRadio.play();
                     }, 300)
 
                 } else {
-                    radio.play();
+                    // radio.play();
+                    // if (onlineRadio) {
+                    //     onlineRadio.unload();
+                    // }
+
+                    onlineRadio = new Howl({
+                        src: [streamKey],
+                        html5: true,
+                        format: ['mp3', 'aac'],
+                        onload: () => {
+                            console.log('Stream Loaded');
+                           
+
+                        },
+                        onend: () => {
+                            console.log('Stream ended');
+                        },
+                        onloaderror: (id, error) => {
+                            console.error('Load error', error);
+                        },
+                        onplayerror: (id, error) => {
+                            console.error('Play error', error);
+                        }
+                    });
+
+                    isPlaying = true;
+                    onlineRadio.play();
                 }
                 // radio.currentTime = 0;
                 // play.classList.toggle("show");
@@ -1615,7 +1714,9 @@
 
 
                 // radio.volume = 0;
-                radio.pause();
+                // radio.pause();
+                isPlaying = pause;
+                onlineRadio.stop();
                 deactiveSpike();
             }
         }
@@ -1673,7 +1774,7 @@
 
     function playAudio(src) {
         const audio = document.getElementById("newsPlayer");
-        const radio = document.getElementById("audioPlayer");
+        // const radio = document.getElementById("audioPlayer");
         const play = document.querySelectorAll(".audioPlay");
         const pause = document.querySelectorAll(".audioPause");
         audio.setAttribute('src', src);
@@ -1682,8 +1783,10 @@
         playRadio(true);
 
         if (audio) {
-            if (!radio.paused) {
-                radio.pause();
+            if (isPlaying) {
+                isPlaying = false;
+                onlineRadio.stop()
+                deactiveSpike();
             }
             setTimeout(() => {
                 audio.play();

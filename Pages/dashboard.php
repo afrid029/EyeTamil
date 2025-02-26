@@ -50,6 +50,8 @@
 
     if (!isset($_COOKIE['user'])) {
         header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
+        exit();
     } else {
 
         $data = base64_decode($_COOKIE['user']);
@@ -72,6 +74,8 @@
             $_SESSION['role'] = $passedArray['role'];
         } else {
             header('Location: /');
+            echo "<script>window.location.pathname = '/'</script>";
+            exit();
         }
     }
 

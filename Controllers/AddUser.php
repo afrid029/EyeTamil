@@ -3,6 +3,7 @@
     if(isset($_POST['submit'])){
         if (!isset($_COOKIE['user'])) {
             header('Location: /');
+            echo "<script>window.location.pathname = '/'</script>";
             exit();
         }
       
@@ -39,6 +40,7 @@
     } elseif($_POST['edit-submit']) {
         if (!isset($_COOKIE['user'])) {
             header('Location: /');
+            echo "<script>window.location.pathname = '/'</script>";
             exit();
         }
       
@@ -77,6 +79,7 @@
         }
     } else {
         header('Location: /');
+        echo "<script>window.location.pathname = '/'</script>";
         exit();
     }
 
