@@ -1279,7 +1279,15 @@
 
                     const Enhour = response[i].end.split(':')[0];
                     const EnMin = response[i].end.split(':')[1];
-                    const endTimeInSeconds = Enhour * 3600 + EnMin * 60;
+                      
+                    let endTimeInSeconds;
+                    
+                    if(Enhour == 0 && EnMin == 0){
+                         endTimeInSeconds = 24 * 3600 + EnMin * 60;
+                    } else {
+                         endTimeInSeconds = Enhour * 3600 + EnMin * 60;
+                    }
+                    
 
                     let imgSrc = response[i].image;
                     imgSrc = imgSrc.split("/");
