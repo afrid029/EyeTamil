@@ -8,8 +8,6 @@
         }
       
         include('DBConnectivity.php');
-
-
         $username = $_POST['userid'];
         $password = $_POST['password'];
         $role = 'RJ';
